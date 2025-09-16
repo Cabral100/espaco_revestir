@@ -11,13 +11,12 @@
     
     <style>
         :root {
-            --color-background: #000000;
-            --color-text: #FFFFFF;
+            --color-background: #f8f9fa;
+            --color-text: #212529;
             --color-gold: #D4AF37;
             --color-orange: #FF6B35;
-            --color-subtle: #a0a0a0;
-            --color-dark-gray: #1a1a1a;
-            --color-light-gray: #f5f5f5;
+            --color-subtle: #6c757d;
+            --color-section-white: #FFFFFF;
             --font-heading: 'Playfair Display', serif;
             --font-body: 'Montserrat', sans-serif;
         }
@@ -39,19 +38,48 @@
         body.no-scroll {
             overflow: hidden;
         }
+        
+        #loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background-color: #ffffff;
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+        #loader img {
+            max-width: 250px;
+            animation: fadeIn 1.5s ease-in-out;
+        }
+        #loader.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
         .site-header {
             position: fixed;
             top: 0;
             left: 0;
             right: 0;
-            background: white;
+            background: var(--color-section-white);
             z-index: 1000;
             padding: 0.5rem 2rem;
-            transition: background-color 0.3s ease;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+            border-bottom: 1px solid transparent;
         }
         .site-header.scrolled {
             background: rgba(255, 255, 255, 0.9);
             backdrop-filter: blur(10px);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
         }
         .header-content {
             display: flex;
@@ -70,11 +98,12 @@
             gap: 2rem;
         }
         .nav-menu a {
-            color: var(--color-dark-gray);
+            color: var(--color-text);
             text-decoration: none;
             font-weight: 500;
             transition: color 0.3s ease;
             position: relative;
+            white-space: nowrap;
         }
         .nav-menu a:hover {
             color: var(--color-orange);
@@ -96,7 +125,7 @@
             display: none;
             background: none;
             border: none;
-            color: var(--color-dark-gray);
+            color: var(--color-text);
             font-size: 1.8rem;
             cursor: pointer;
             z-index: 1002;
@@ -108,7 +137,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(10, 10, 10, 0.98);
+            background-color: rgba(255, 255, 255, 0.98);
             backdrop-filter: blur(5px);
             z-index: 1001;
             display: flex;
@@ -120,6 +149,10 @@
         }
         .mobile-menu-overlay.active {
             transform: translateY(0);
+        }
+        .mobile-menu-logo {
+            max-height: 120px;
+            margin-bottom: 3rem;
         }
         .mobile-menu-close {
             position: absolute;
@@ -137,7 +170,20 @@
         }
         .mobile-nav-menu li {
             margin: 2rem 0;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.4s ease, transform 0.4s ease;
         }
+        .mobile-menu-overlay.active .mobile-nav-menu li {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .mobile-menu-overlay.active .mobile-nav-menu li:nth-child(1) { transition-delay: 0.2s; }
+        .mobile-menu-overlay.active .mobile-nav-menu li:nth-child(2) { transition-delay: 0.25s; }
+        .mobile-menu-overlay.active .mobile-nav-menu li:nth-child(3) { transition-delay: 0.3s; }
+        .mobile-menu-overlay.active .mobile-nav-menu li:nth-child(4) { transition-delay: 0.35s; }
+        .mobile-menu-overlay.active .mobile-nav-menu li:nth-child(5) { transition-delay: 0.4s; }
+        .mobile-menu-overlay.active .mobile-nav-menu li:nth-child(6) { transition-delay: 0.45s; }
         .mobile-nav-menu a {
             color: var(--color-text);
             text-decoration: none;
@@ -167,15 +213,56 @@
         }
         @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); } 70% { box-shadow: 0 0 0 10px rgba(37, 211, 102, 0); } 100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); } }
         
-        section {
-            padding: 6rem 2rem;
+        #backToTopBtn {
+            position: fixed;
+            bottom: 90px;
+            right: 20px;
+            z-index: 999;
+            background-color: var(--color-orange);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            font-size: 22px;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        #backToTopBtn.show {
+            opacity: 1;
+            visibility: visible;
+        }
+        #backToTopBtn:hover {
+            transform: scale(1.1);
         }
 
+        section {
+            padding: 6rem 2rem;
+            position: relative;
+        }
+        .section-divider {
+            height: 100px;
+            position: relative;
+            overflow: hidden;
+        }
+        .section-divider svg {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            transform: translateY(2px);
+        }
         .section-title-wrapper {
             text-align: center;
             margin-bottom: 4rem;
         }
-        
         .section-title {
             font-size: clamp(2.2rem, 5vw, 3rem);
             font-family: var(--font-heading);
@@ -193,15 +280,13 @@
             width: 80px;
             height: 4px;
             background-color: var(--color-orange);
-            border-radius: 2px;
         }
-        
         .hero-section {
             height: 100vh;
             display: grid;
             place-content: center;
             text-align: center;
-            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('img/tami1.png') no-repeat center center/cover;
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('img/tami1.png') no-repeat center center/cover;
             padding-top: 120px;
         }
         .hero-content { max-width: 800px; }
@@ -209,15 +294,14 @@
             font-size: clamp(2.5rem, 5vw, 4.5rem);
             margin-bottom: 1rem;
             font-family: var(--font-heading);
-            color: var(--color-text);
+            color: #FFFFFF;
         }
         .hero-section .subtitle {
             font-size: clamp(1rem, 2vw, 1.25rem);
-            color: var(--color-subtle);
+            color: #f0f0f0;
             max-width: 600px;
             margin: 0 auto;
         }
-        
         .animated-text-container span, .animated-text-container-word span {
             display: inline-block;
             opacity: 0;
@@ -225,8 +309,10 @@
             transform: translateY(20px);
             transition: opacity 0.6s ease, filter 0.6s ease, transform 0.6s ease;
         }
-        
-        .brands-section { padding: 3rem 0; }
+        .brands-section { 
+            padding: 3rem 0; 
+            background-color: #000000;
+        }
         .logo-marquee {
             width: 100%;
             overflow: hidden;
@@ -239,36 +325,47 @@
             display: inline-block;
             font-family: var(--font-heading);
             font-size: 2rem;
-            color: var(--color-subtle);
+            color: #a0a0a0;
             padding: 2rem;
         }
         @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
-
+        
+        .about-section { background-color: var(--color-section-white); }
         .about-container {
             max-width: 1200px;
             margin: 0 auto;
             display: grid;
             grid-template-columns: 1fr 1fr;
+            grid-template-areas: "text image";
             gap: 4rem;
             align-items: center;
         }
+        .about-text { 
+            grid-area: text; 
+            display: flex;
+            flex-direction: column;
+        }
+        .about-image { grid-area: image; width: 100%; height: 100%; object-fit: cover; }
+        .about-text .section-title-wrapper {
+             text-align: left; 
+             margin-bottom: 0;
+        }
         .about-text h2 {
             font-size: clamp(1.8rem, 4vw, 2.5rem);
-            margin-bottom: 1rem;
-            text-align: left;
         }
-        .about-text p { color: var(--color-subtle); margin-bottom: 2rem; }
-        .about-image { width: 100%; height: 100%; object-fit: cover; border-radius: 12px; }
+        .about-text p { color: var(--color-subtle); margin-top: 1.5rem; }
         .about-button {
             display: inline-block;
             padding: 0.75rem 2rem;
             background-color: var(--color-orange);
-            color: var(--color-text);
-            border-radius: 8px;
+            color: #FFFFFF;
             text-decoration: none;
             font-weight: 600;
+            margin-top: 2.5rem; /* Increased spacing */
+            border-radius: 8px; /* Added subtle radius */
+            align-self: flex-start; /* Align button to the left on desktop */
         }
-
+        
         .layered-scroll-container { position: relative; }
         .layered-scroll-section {
             height: 100vh;
@@ -286,24 +383,21 @@
             background-color: rgba(0, 0, 0, 0.6); z-index: 1;
         }
         .layered-scroll-content { position: relative; z-index: 2; padding: 2rem; max-width: 800px; }
-        .layered-scroll-content .section-title { color: var(--color-text); }
-        .layered-scroll-content p { font-size: clamp(1rem, 2vw, 1.25rem); color: var(--color-text); }
-
-        .showroom-gallery { padding: 2rem; }
+        .layered-scroll-content .section-title { color: #FFFFFF; }
+        .layered-scroll-content p { font-size: clamp(1rem, 2vw, 1.25rem); color: #FFFFFF; }
+        .showroom-gallery { padding: 6rem 2rem; background-color: var(--color-background); }
         .gallery-columns { columns: 3; column-gap: 1rem; }
         .gallery-item { margin-bottom: 1rem; break-inside: avoid; }
         .gallery-item img {
             width: 100%;
             height: auto;
             display: block;
-            border-radius: 8px;
             opacity: 0;
             transform: translateY(30px);
             transition: opacity 0.8s ease-out, transform 0.8s ease-out;
         }
         .gallery-item.visible img { opacity: 1; transform: translateY(0); }
-
-        .contact-section { background-color: var(--color-dark-gray); }
+        .contact-section { background-color: var(--color-section-white); }
         .contact-container {
             max-width: 1200px; margin: 0 auto; display: grid;
             grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start;
@@ -313,44 +407,104 @@
             display: flex; align-items: flex-start; gap: 1.5rem; margin-bottom: 2rem;
         }
         .contact-item i { color: var(--color-orange); font-size: 1.5rem; margin-top: 0.2rem; }
-        .map-container { border-radius: 12px; overflow: hidden; height: 100%; min-height: 500px; }
+        .map-container { overflow: hidden; height: 100%; min-height: 500px; }
         .map-container iframe { width: 100%; height: 100%; border: none; }
-
         .form-section { background-color: var(--color-background); }
         .form-container { max-width: 700px; margin: 0 auto; }
-        .contact-form { background: var(--color-dark-gray); padding: 3rem; border-radius: 12px; }
+        .contact-form { background: var(--color-section-white); padding: 3rem; box-shadow: 0 8px 30px rgba(0,0,0,0.05); }
         .contact-form .section-title { color: var(--color-text) !important; }
         .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem; }
         .form-group { margin-bottom: 1.5rem; }
         .form-group input, .form-group select, .form-group textarea {
-            width: 100%; padding: 12px 16px; background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 8px; color: var(--color-text);
+            width: 100%; padding: 12px 16px; background: #f0f0f0;
+            border: 1px solid #ccc; color: var(--color-text);
+            border-radius: 8px;
+        }
+        .form-group input::placeholder, .form-group textarea::placeholder {
+            color: #888;
         }
         .form-submit {
             width: 100%; padding: 15px; background: linear-gradient(135deg, var(--color-gold), var(--color-orange));
-            border: none; border-radius: 8px; color: var(--color-background); font-weight: 600; cursor: pointer;
+            border: none; color: #FFFFFF; font-weight: 600; cursor: pointer; border-radius: 8px;
         }
 
-        .visit-section { background: var(--color-dark-gray); text-align: center; }
+        .faq-section {
+            --s: 200px;
+            --c1: #1d1d1d;
+            --c2: #4e4f51;
+            --c3: #3c3c3c;
+            background:
+                repeating-conic-gradient(from 30deg, #0000 90deg 120deg, var(--c3) 0deg 180deg) calc(0.5 * var(--s)) calc(0.5 * var(--s) * 0.577),
+                repeating-conic-gradient(from 30deg, var(--c1) 0deg 60deg, var(--c2) 0deg 120deg, var(--c3) 0deg 180deg);
+            background-size: var(--s) calc(var(--s) * 0.577);
+            color: #fff;
+        }
+        .faq-section .section-title { color: #fff; }
+        .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .faq-item {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 1.5rem 0;
+        }
+        .faq-question {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            font-size: 1.2rem;
+            font-weight: 500;
+        }
+        .faq-question i {
+            transition: transform 0.3s ease;
+        }
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease-in-out, padding 0.4s ease;
+            color: rgba(255, 255, 255, 0.8);
+        }
+        .faq-item.active .faq-answer {
+            max-height: 200px; /* Adjust as needed */
+            padding-top: 1rem;
+        }
+        .faq-item.active .faq-question i {
+            transform: rotate(45deg);
+        }
+        .visit-section { 
+            background: #212529; 
+            text-align: center;
+            color: #FFFFFF;
+        }
+        .visit-section .section-title {
+            color: #FFFFFF;
+        }
         .qr-code-image {
-            display: block; margin: 2rem auto; border-radius: 12px;
+            display: block; margin: 2rem auto;
             background: white; padding: 10px; max-width: 180px;
         }
         .visit-btn {
-            display: inline-block; background: var(--color-orange); color: var(--color-background);
-            padding: 1rem 7rem; border: 2px solid var(--color-orange); border-radius: 8px;
+            display: inline-block; background: var(--color-orange); color: #FFFFFF;
+            padding: 1rem 7rem; border: 2px solid var(--color-orange);
             text-decoration: none; font-weight: 600; text-transform: uppercase;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            border-radius: 8px;
         }
-        .visit-btn:hover { background: var(--color-orange); color: var(--color-dark-gray); }
-
-        .site-footer { background-color: #111; padding: 2.5rem 2rem 1.5rem; border-top: 1px solid #333; }
+        .visit-btn:hover { background: transparent; color: var(--color-orange); }
+        .site-footer { 
+            background-color: #111; 
+            padding: 2.5rem 2rem 1.5rem; 
+            border-top: 1px solid #333; 
+            position: relative;
+        }
         .footer-content {
             max-width: 1200px; margin: 0 auto; display: flex;
             justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 2rem;
         }
         .footer-logo { height: 150px; }
         .footer-nav ul { list-style: none; display: flex; gap: 1.5rem; }
-        .footer-nav a { color: var(--color-subtle); text-decoration: none; }
+        .footer-nav a { color: #a0a0a0; text-decoration: none; }
         .footer-social { display: flex; gap: 1rem; }
         .footer-social a {
             width: 40px; height: 40px; background: #2a2a2a; border-radius: 50%;
@@ -359,12 +513,11 @@
         }
         .footer-bottom {
             border-top: 1px solid #2a2a2a; margin-top: 2rem; padding-top: 1.5rem;
-            text-align: center; color: var(--color-subtle); font-size: 0.9rem;
+            text-align: center; color: #a0a0a0; font-size: 0.9rem;
         }
 
         @media (max-width: 1024px) {
-            .about-container, .contact-container { grid-template-columns: 1fr; }
-            .about-image { grid-row: 1; }
+            .contact-container { grid-template-columns: 1fr; }
             .gallery-columns { columns: 2; }
         }
         @media (max-width: 768px) {
@@ -373,13 +526,53 @@
             .nav-menu { display: none; }
             .mobile-menu-toggle { display: block; }
             section { padding: 4rem 1rem; }
+            
+            .about-container {
+                grid-template-columns: 1fr;
+                grid-template-areas: 
+                    "text"
+                    "image";
+            }
+            .about-text {
+                align-items: center; /* Center items for mobile */
+            }
+            .about-text .section-title-wrapper, .about-text p {
+                width: 100%;
+                text-align: left; /* Keep text left aligned */
+            }
+            .about-image { 
+                margin-top: 2rem; 
+            }
+            .about-button { 
+                margin-top: 1.5rem;
+                padding: 0.6rem 1.5rem; /* Smaller button on mobile */
+                font-size: 0.9rem;
+                align-self: center; /* Explicitly center the button */
+            }
+            
             .form-row { grid-template-columns: 1fr; }
             .gallery-columns { columns: 1; }
-            .footer-content { flex-direction: column; justify-content: center; }
+            .footer-content { flex-direction: column; justify-content: center; text-align: center; }
+            .footer-nav ul { 
+                flex-direction: row; 
+                flex-wrap: nowrap;
+                justify-content: center;
+                gap: 1.5rem; 
+                padding: 0;
+                width: 100%;
+                overflow-x: auto;
+            }
+            .footer-nav ul a {
+                white-space: nowrap;
+            }
         }
     </style>
 </head>
 <body>
+    <div id="loader">
+        <img src="img/logo_transparente.png" alt="Carregando - Logo Espaço Revestir">
+    </div>
+
     <header class="site-header">
         <div class="header-content">
             <a href="#hero"><img src="img/logo_transparente.png" alt="Logo Espaço Revestir" class="header-logo"></a>
@@ -400,6 +593,7 @@
     </header>
 
     <div class="mobile-menu-overlay">
+        <img src="img/logo_transparente.png" alt="Logo Espaço Revestir" class="mobile-menu-logo">
         <button class="mobile-menu-close" aria-label="Fechar Menu"><i class="fas fa-times"></i></button>
         <nav>
             <ul class="mobile-nav-menu">
@@ -416,6 +610,8 @@
     <a href="https://wa.me/5511999018646?text=Olá! Gostaria de agendar uma visita ao showroom." class="whatsapp-float" target="_blank" aria-label="WhatsApp">
         <i class="fab fa-whatsapp"></i>
     </a>
+    
+    <button id="backToTopBtn" title="Voltar ao topo"><i class="fas fa-arrow-up"></i></button>
 
     <main>
         <section class="hero-section" id="hero">
@@ -424,7 +620,7 @@
                 <p class="subtitle animated-text-container">Acabamentos de Alto Padrão que transformam ambientes e realizam sonhos.</p>
             </div>
         </section>
-        
+
         <section id="brands" class="brands-section">
             <div class="logo-marquee">
                 <ul class="logo-track">
@@ -433,14 +629,14 @@
                 </ul>
             </div>
         </section>
-
+        
         <section class="about-section" id="about">
             <div class="about-container">
                 <div class="about-text">
-                    <div class="section-title-wrapper" style="text-align: left; margin-bottom: 2rem;">
+                    <div class="section-title-wrapper">
                         <h2 class="section-title animated-text-container-word">Nossa história</h2>
                     </div>
-                    <p >A Espaço Revestir nasceu em 2008 com o propósito de transformar projetos em experiências únicas. Atuamos no mercado de acabamentos finos, decoração e construção, oferecendo um portfólio completo de revestimentos, porcelanatos, pastilhas, mosaicos, louças, metais e acessórios, reunindo marcas nacionais e importadas de referência. Mais do que produtos, entregamos curadoria, qualidade e exclusividade, sempre alinhados às tendências e às necessidades de cada cliente — do residencial ao comercial. Atendemos clientes exigentes, arquitetos, engenheiros e decoradores que buscam excelência em cada etapa da construção ou reforma. Porque mais do que vender produtos, entregamos inspiração.</p>
+                    <p>A Espaço Revestir nasceu em 2008 com o propósito de transformar projetos em experiências únicas. Atuamos no mercado de acabamentos finos, decoração e construção, oferecendo um portfólio completo de revestimentos, porcelanatos, pastilhas, mosaicos, louças, metais e acessórios, reunindo marcas nacionais e importadas de referência. Mais do que produtos, entregamos curadoria, qualidade e exclusividade, sempre alinhados às tendências e às necessidades de cada cliente — do residencial ao comercial. Atendemos clientes exigentes, arquitetos, engenheiros e decoradores que buscam excelência em cada etapa da construção ou reforma. Porque mais do que vender produtos, entregamos inspiração.</p>
                     <a href="#contact" class="about-button">Fale Conosco</a>
                 </div>
                 <img class="about-image" src="img/fachada.png" alt="Imagem da loja Espaço Revestir" />
@@ -452,25 +648,29 @@
                 <div class="overlay"></div>
                 <div class="layered-scroll-content">
                     <h2 class="section-title animated-text-container-word">Missão</h2>
-                    <p class="animated-text-container">Oferecer soluções completas em acabamentos de alto padrão, unindo design e funcionalidade com um atendimento personalizado que transforma projetos em experiências únicas.</p>
+                    <p>Oferecer soluções completas em acabamentos de alto padrão, unindo design e funcionalidade com um atendimento personalizado que transforma projetos em experiências únicas.</p>
                 </div>
             </section>
             <section class="layered-scroll-section" style="background-image: url('img/LOJA-08.jpg');">
                  <div class="overlay"></div>
                 <div class="layered-scroll-content">
                     <h2 class="section-title animated-text-container-word">Visão</h2>
-                    <p class="animated-text-container">Ser a referência regional em design de interiores, reconhecida como a melhor escolha em sofisticação, qualidade e atendimento por clientes e arquitetos.</p>
+                    <p>Ser a referência regional em design de interiores, reconhecida como a melhor escolha em sofisticação, qualidade e atendimento por clientes e arquitetos.</p>
                 </div>
             </section>
             <section class="layered-scroll-section" style="background-image: url('img/tami1.png');">
                  <div class="overlay"></div>
                 <div class="layered-scroll-content">
                     <h2 class="section-title animated-text-container-word">Valores</h2>
-                    <p class="animated-text-container">Excelência, Inovação, Relacionamento, Transparência, Encantamento e Sustentabilidade.</p>
+                    <p>Excelência, Inovação, Relacionamento, Transparência, Encantamento e Sustentabilidade.</p>
                 </div>
             </section>
         </div>
         
+        <div class="section-divider" style="color: var(--color-background); background-color: transparent; margin-top:-1px;">
+            <svg viewBox="0 0 1440 100" fill="currentColor" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"><path d="M1440 100H0V0C480 66.6667 960 66.6667 1440 0V100Z"></path></svg>
+        </div>
+
         <section class="showroom-gallery" id="showroom">
             <div class="section-title-wrapper">
                 <h2 class="section-title animated-text-container-word">Nossos Ambientes</h2>
@@ -489,8 +689,20 @@
                 <div class="gallery-item"><img src="img/Rb.0225-Raquel-RealPark-MB.JPG" alt="Ambiente 11" /></div>
                 <div class="gallery-item"><img src="img/bonotti3.png" alt="Ambiente 12" /></div>
                 <div class="gallery-item"><img src="img/casa2_MT.jpg" alt="Ambiente 13" /></div>
+                <div class="gallery-item"><img src="img/AMBIENTE_BIANCOGRES_ILLUMINATO_BEIGE_90X90.jpg" alt="Ambiente 14" /></div>
+                <div class="gallery-item"><img src="img/AMBIENTE_PORCELANATO_MARMO_EGEU_SATIN_90X90.jpg" alt="Ambiente 15" /></div>
+                <div class="gallery-item"><img src="img/deca 3.webp" alt="Ambiente 16" /></div>
+                <div class="gallery-item"><img src="img/deca1.webp" alt="Ambiente 17" /></div>
+                <div class="gallery-item"><img src="img/deca2.webp" alt="Ambiente 18" /></div>
+                <div class="gallery-item"><img src="img/deca4.webp" alt="Ambiente 19" /></div>
+                <div class="gallery-item"><img src="img/port3.webp" alt="Ambiente 20" /></div>
+
             </div>
         </section>
+
+        <div class="section-divider" style="color: var(--color-section-white); background-color: var(--color-background);">
+            <svg viewBox="0 0 1440 100" fill="currentColor" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"><path d="M1440 100H0V0C480 66.6667 960 66.6667 1440 0V100Z"></path></svg>
+        </div>
 
         <section class="contact-section" id="contact">
              <div class="section-title-wrapper">
@@ -498,7 +710,7 @@
             </div>
             <div class="contact-container">
                 <div class="contact-info-section">
-                    <div class="contact-item">
+                     <div class="contact-item">
                         <i class="fas fa-phone"></i>
                         <div><h4>Telefone</h4><p>+55 11 99018-6426</p></div>
                     </div>
@@ -516,12 +728,17 @@
                     </div>
                 </div>
                 <div class="map-container">
-<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3658.454682595158!2d-46.1894152!3d-23.5161435!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94cdd822b43d637d%3A0x2ff2c4974151eeac!2sEspa%C3%A7o%20Revestir%20Mogi!5e0!3m2!1spt-BR!2sbr!4v1757984732600!5m2!1spt-BR!2sbr" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>                </div>
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3659.136319803274!2d-46.1927706855448!3d-23.49137198471784!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94ce7a6797b53573%3A0x6b87612f0b784e9d!2sAv.%20Ver.%20Narciso%20Yague%20Guimar%C3%A3es%2C%201001%20-%20Vila%20Partenio%2C%20Mogi%20das%20Cruzes%20-%20SP%2C%2008780-000!5e0!3m2!1spt-BR!2sbr!4v1663342502819!5m2!1spt-BR!2sbr" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
             </div>
         </section>
-        
+
+        <div class="section-divider" style="color: var(--color-background); background-color: var(--color-section-white);">
+            <svg viewBox="0 0 1440 100" fill="currentColor" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"><path d="M1440 100H0V0C480 66.6667 960 66.6667 1440 0V100Z"></path></svg>
+        </div>
+
         <section class="form-section">
-            <div class="form-container">
+           <div class="form-container">
                 <div class="contact-form">
                     <div class="section-title-wrapper">
                          <h2 class="section-title animated-text-container-word">Envie sua Mensagem</h2>
@@ -537,13 +754,13 @@
                         </div>
                         <div class="form-group">
                             <select id="subject" name="subject" required>
-                                <option value="" style="color: #111;" >Selecione o assunto</option>
-                                <option value="visita" style="color: #111;">Agendamento de Visita</option>
-                                <option value="orcamento"style="color: #111;">Solicitação de Orçamento</option>
+                                <option value="" disabled selected>Selecione o assunto</option>
+                                <option value="visita">Agendamento de Visita</option>
+                                <option value="orcamento">Solicitação de Orçamento</option>
                             </select>
                         </div>
                         <div class="form-group">
-                            <textarea id="message" name="message" placeholder="Conte-nos mais sobre seu projeto..." required></textarea>
+                            <textarea id="message" name="message" rows="5" placeholder="Conte-nos mais sobre seu projeto..." required></textarea>
                         </div>
                         <button type="submit" class="form-submit">Enviar Mensagem</button>
                     </form>
@@ -551,6 +768,50 @@
             </div>
         </section>
 
+        <section class="faq-section" id="faq">
+            <div class="section-title-wrapper">
+                <h2 class="section-title">Perguntas Frequentes</h2>
+            </div>
+            <div class="faq-container">
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>O que são acabamentos de alto padrão?</span>
+                        <i class="fas fa-plus"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Acabamentos de alto padrão são materiais e produtos de qualidade superior, que se destacam pelo design, durabilidade, tecnologia e exclusividade. Eles são essenciais para criar ambientes sofisticados e valorizar o imóvel.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Preciso agendar uma visita para conhecer o showroom?</span>
+                        <i class="fas fa-plus"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Embora não seja obrigatório, recomendamos o agendamento para garantir que um de nossos consultores especializados esteja totalmente disponível para oferecer um atendimento personalizado e exclusivo para o seu projeto.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Vocês trabalham com arquitetos e designers de interiores?</span>
+                        <i class="fas fa-plus"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Sim! Temos um relacionamento próximo e colaborativo com arquitetos, designers e engenheiros. Oferecemos condições especiais e um suporte completo para que seus projetos se realizem com perfeição.</p>
+                    </div>
+                </div>
+                 <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Quais tipos de produtos vocês oferecem?</span>
+                        <i class="fas fa-plus"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Nosso portfólio inclui uma vasta gama de porcelanatos, revestimentos, louças, metais, mosaicos e acessórios das melhores marcas nacionais e importadas, sempre alinhados com as últimas tendências do mercado.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
         <section class="visit-section" id="visit">
              <div class="section-title-wrapper">
                 <h2 class="section-title animated-text-container-word">Visite Nosso Site</h2>
@@ -562,7 +823,7 @@
             </div>
         </section>
     </main>
-
+    
     <footer class="site-footer">
         <div class="footer-content">
             <img src="img/LOGO.png" alt="Logo Espaço Revestir" class="footer-logo">
@@ -587,12 +848,38 @@
     
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const header = document.querySelector('.site-header');
-            window.addEventListener('scroll', () => {
-                header.classList.toggle('scrolled', window.scrollY > 50);
-            });
+            const body = document.body;
 
-            // SCRIPT DE ANIMAÇÃO DE TEXTO CORRIGIDO
+            const loader = document.getElementById('loader');
+            if (loader) {
+                body.classList.add('no-scroll');
+                setTimeout(() => {
+                    loader.classList.add('hidden');
+                    body.classList.remove('no-scroll');
+                }, 3000);
+            }
+
+            const header = document.querySelector('.site-header');
+            if (header) {
+                window.addEventListener('scroll', () => {
+                    header.classList.toggle('scrolled', window.scrollY > 50);
+                });
+            }
+            
+            const backToTopBtn = document.getElementById('backToTopBtn');
+            if (backToTopBtn) {
+                window.addEventListener('scroll', () => {
+                    if (window.scrollY > 300) {
+                        backToTopBtn.classList.add('show');
+                    } else {
+                        backToTopBtn.classList.remove('show');
+                    }
+                });
+                backToTopBtn.addEventListener('click', () => {
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                });
+            }
+
             const setupTextAnimation = (container) => {
                 const text = container.textContent.trim();
                 const isWordByWord = container.classList.contains('animated-text-container-word');
@@ -603,17 +890,15 @@
                     words.forEach((word, index) => {
                         const span = document.createElement('span');
                         span.textContent = word;
-                        span.style.transitionDelay = `${index * 0.01}s`;
+                        span.style.transitionDelay = `${index * 0.05}s`;
                         container.appendChild(span);
-                        if (index < words.length - 1) {
-                            container.append(' ');
-                        }
+                        if (index < words.length - 1) container.append(' ');
                     });
                 } else {
                     const letters = text.split('');
                     letters.forEach((letter, index) => {
                         const span = document.createElement('span');
-                        span.innerHTML = letter === ' ' ? '&nbsp;' : letter;
+                        span.innerHTML = letter === ' ' ? ' ' : letter;
                         span.style.transitionDelay = `${index * 0.01}s`;
                         container.appendChild(span);
                     });
@@ -634,7 +919,7 @@
                         textObserver.unobserve(entry.target);
                     }
                 });
-            }, { threshold: 0.5 });
+            }, { threshold: 0.1 });
 
             textContainers.forEach(el => textObserver.observe(el));
             
@@ -653,12 +938,12 @@
             const mobileClose = document.querySelector('.mobile-menu-close');
             const mobileOverlay = document.querySelector('.mobile-menu-overlay');
             const mobileMenuLinks = document.querySelectorAll('.mobile-nav-menu a');
-            const body = document.body;
             
             if (mobileToggle && mobileOverlay && mobileClose) {
                 const toggleMenu = () => {
+                    const isActive = mobileOverlay.classList.contains('active');
                     mobileOverlay.classList.toggle('active');
-                    body.classList.toggle('no-scroll');
+                    body.classList.toggle('no-scroll', !isActive);
                 };
                 mobileToggle.addEventListener('click', toggleMenu);
                 mobileClose.addEventListener('click', toggleMenu);
@@ -666,8 +951,19 @@
                     if (mobileOverlay.classList.contains('active')) toggleMenu();
                 }));
             }
+            
+            const faqItems = document.querySelectorAll('.faq-item');
+            faqItems.forEach(item => {
+                const question = item.querySelector('.faq-question');
+                question.addEventListener('click', () => {
+                    const currentlyActive = document.querySelector('.faq-item.active');
+                    if (currentlyActive && currentlyActive !== item) {
+                        currentlyActive.classList.remove('active');
+                    }
+                    item.classList.toggle('active');
+                });
+            });
 
-            // FORMULÁRIO COM ENVIO PARA WHATSAPP
             const contactForm = document.getElementById('contactForm');
             if (contactForm) {
                 contactForm.addEventListener('submit', (e) => {
@@ -678,22 +974,19 @@
                     const email = formData.get('email');
                     const phone = formData.get('phone');
                     const city = formData.get('city');
-                    const subject = formData.get('subject');
+                    const subjectValue = formData.get('subject');
+                    const subjectText = contactForm.querySelector('select[name="subject"] option:checked').textContent;
                     const message = formData.get('message');
 
-                    if (name && email && subject && message) {
-                        let whatsappMessage = `*Novo Contato do Site - Espaço Revestir*\n\n`;
-                        whatsappMessage += `*Nome:* ${name}\n`;
-                        whatsappMessage += `*E-mail:* ${email}\n`;
+                    if (name && email && subjectValue && message) {
+                        let whatsappMessage = `*Novo Contato do Site - Espaço Revestir*\n\n*Nome:* ${name}\n*E-mail:* ${email}\n`;
                         if (phone) whatsappMessage += `*Telefone:* ${phone}\n`;
                         if (city) whatsappMessage += `*Cidade:* ${city}\n`;
-                        whatsappMessage += `*Assunto:* ${subject}\n\n`;
-                        whatsappMessage += `*Mensagem:*\n${message}`;
+                        whatsappMessage += `*Assunto:* ${subjectText}\n\n*Mensagem:*\n${message}`;
                         
                         const whatsappUrl = `https://wa.me/5511999018646?text=${encodeURIComponent(whatsappMessage)}`;
                         
                         window.open(whatsappUrl, '_blank');
-                        
                         contactForm.reset();
                     } else {
                         alert('Por favor, preencha todos os campos obrigatórios.');
