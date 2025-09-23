@@ -387,7 +387,7 @@
             text-align: center;
             width: calc(20% - 1rem);
             min-width: 280px;
-            transition: transform 0.3s ease;
+            transition: transform 0.3s ease, opacity 0.3s ease;
         }
         .team-member:hover {
             transform: translateY(-10px);
@@ -464,7 +464,38 @@
             border-color: #25D366;
             box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3);
         }
-        
+
+        /* ===== ESTILOS DA BUSCA - INÍCIO ===== */
+        .team-search-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+            max-width: 500px;
+            margin: -2rem auto 4rem;
+        }
+        #teamSearchInput {
+            width: 100%;
+            padding: 12px 18px;
+            font-size: 1rem;
+            border: 1px solid #ccc;
+            background: #f0f0f0;
+            color: var(--color-text);
+            border-radius: 25px;
+        }
+        #teamSearchInput:focus {
+            outline: none;
+            border-color: var(--color-orange);
+            box-shadow: 0 0 0 3px rgba(255, 165, 0, 0.2);
+        }
+        .no-results-message {
+            text-align: center;
+            margin-top: 2rem;
+            font-size: 1.1rem;
+            color: var(--color-subtle);
+        }
+        /* ===== ESTILOS DA BUSCA - FIM ===== */
+
         .layered-scroll-container { position: relative; }
         .layered-scroll-section {
             height: 100vh;
@@ -621,7 +652,7 @@
 
         @media (max-width: 1200px) {
             .team-member {
-                width: calc(25% - 1rem);
+                width: calc(25% - 1.5rem);
             }
         }
 
@@ -629,10 +660,11 @@
             .contact-container { grid-template-columns: 1fr; }
             .gallery-columns { columns: 2; }
             .team-member {
-                width: calc(33.333% - 1rem);
+                width: calc(33.333% - 1.5rem);
             }
         }
         @media (max-width: 768px) {
+            .site-header { padding: 0.5rem 1.5rem; }
             .header-content { height: 90px; }
             .header-logo { height: 80px; }
             .nav-menu { display: none; }
@@ -651,6 +683,11 @@
                 flex-direction: column;
                 align-items: center;
                 gap: 3rem;
+            }
+             .team-contact a {
+                min-width: auto; /* Remove largura mínima em telas pequenas */
+                width: 100%;
+                max-width: 300px;
             }
             
             .about-container {
@@ -680,7 +717,7 @@
                 min-height: 350px;
             }
             .visit-btn {
-                padding: 1rem 3rem;
+                padding: 1rem;
                 width: 100%;
                 max-width: 400px;
             }
@@ -691,7 +728,7 @@
                 flex-direction: row; 
                 flex-wrap: wrap;
                 justify-content: center;
-                gap: 1.5rem; 
+                gap: 1rem 1.5rem; 
                 padding: 0;
                 width: 100%;
             }
@@ -802,11 +839,14 @@
             </section>
         </div>
 
-        <!-- Team Section -->
         <section class="team-section" id="team">
             <div class="team-container">
                 <div class="section-title-wrapper">
                     <h2 class="section-title animated-text-container-word">Nossa Equipe</h2>
+                </div>
+
+                <div class="team-search-container">
+                    <input type="search" id="teamSearchInput" placeholder="Buscar consultor pelo nome...">
                 </div>
                 <div class="team-grid">
                     <div class="team-member">
@@ -899,6 +939,7 @@
                         </div>
                     </div>
                 </div>
+                <p id="noResultsMessage" class="no-results-message" style="display: none;">Nenhum consultor encontrado.</p>
             </div>
         </section>
         
@@ -1228,6 +1269,39 @@
                     }
                 });
             }
+            
+            // ===== SCRIPT DA BUSCA DA EQUIPE - INÍCIO =====
+            const searchInput = document.getElementById('teamSearchInput');
+            const teamMembers = document.querySelectorAll('.team-member');
+            const noResultsMessage = document.getElementById('noResultsMessage');
+
+            if (searchInput) {
+                searchInput.addEventListener('input', () => {
+                    const searchTerm = searchInput.value.toLowerCase().trim();
+                    let membersFound = 0;
+
+                    teamMembers.forEach(member => {
+                        const memberNameElement = member.querySelector('.team-name');
+                        const memberName = memberNameElement ? memberNameElement.textContent.toLowerCase() : '';
+                        
+                        // Verifica se o nome do membro começa com o termo pesquisado
+                        if (memberName.startsWith(searchTerm)) {
+                            member.style.display = 'block';
+                            membersFound++;
+                        } else {
+                            member.style.display = 'none';
+                        }
+                    });
+
+                    // Mostra ou esconde a mensagem de "nenhum resultado"
+                    if (membersFound === 0) {
+                        noResultsMessage.style.display = 'block';
+                    } else {
+                        noResultsMessage.style.display = 'none';
+                    }
+                });
+            }
+            // ===== SCRIPT DA BUSCA DA EQUIPE - FIM =====
 
             document.querySelectorAll('a[href^="#"]').forEach(anchor => {
                 anchor.addEventListener('click', function(e) {
