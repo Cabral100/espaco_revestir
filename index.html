@@ -14,7 +14,7 @@
             --color-background: #f8f9fa;
             --color-text: #212529;
             --color-gold: #D4AF37;
-            --color-orange: #FFA500; /* Laranja mais suave */
+            --color-orange: #FFA500;
             --color-subtle: #6c757d;
             --color-section-white: #FFFFFF;
             --font-heading: 'Playfair Display', serif;
@@ -184,11 +184,12 @@
         .mobile-menu-overlay.active .mobile-nav-menu li:nth-child(4) { transition-delay: 0.35s; }
         .mobile-menu-overlay.active .mobile-nav-menu li:nth-child(5) { transition-delay: 0.4s; }
         .mobile-menu-overlay.active .mobile-nav-menu li:nth-child(6) { transition-delay: 0.45s; }
+        .mobile-menu-overlay.active .mobile-nav-menu li:nth-child(7) { transition-delay: 0.5s; }
         .mobile-nav-menu a {
             color: var(--color-text);
             text-decoration: none;
             font-size: 1.6rem;
-            font-weight: 500; /* ALTERADO: Fonte mais fina */
+            font-weight: 500;
         }
         .whatsapp-float {
             position: fixed;
@@ -366,6 +367,104 @@
             align-self: flex-start;
         }
         
+        /* Team Section Styles */
+        .team-section {
+            background-color: var(--color-section-white);
+            padding: 6rem 2rem;
+        }
+        .team-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        .team-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 3rem 2rem;
+        }
+        .team-member {
+            display: block;
+            text-align: center;
+            width: calc(20% - 1rem);
+            min-width: 280px;
+            transition: transform 0.3s ease;
+        }
+        .team-member:hover {
+            transform: translateY(-10px);
+        }
+        .team-photo {
+            position: relative;
+            margin-bottom: 1.5rem;
+        }
+        .team-photo img {
+            width: 140px;
+            height: 140px;
+            border-radius: 20px;
+            object-fit: cover;
+            margin: 0 auto;
+            display: block;
+            border: 3px solid transparent;
+            transition: all 0.4s ease;
+        }
+        .team-member:hover .team-photo img {
+            border-color: var(--color-orange);
+            transform: scale(1.05);
+        }
+        .team-name {
+            font-size: 1.3rem;
+            color: var(--color-text);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            transition: color 0.3s ease;
+        }
+        .team-member:hover .team-name {
+            color: var(--color-orange);
+        }
+        .team-role {
+            color: var(--color-subtle);
+            font-size: 1rem;
+            margin-bottom: 1.5rem;
+            transition: color 0.3s ease;
+        }
+        .team-member:hover .team-role {
+            color: var(--color-text);
+        }
+        .team-contact {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+            align-items: center;
+        }
+        .team-contact a {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            color: var(--color-text);
+            text-decoration: none;
+            padding: 0.6rem 1.2rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+            min-width: 180px;
+            justify-content: center;
+        }
+        .team-contact a:hover {
+            background-color: var(--color-orange);
+            color: #FFFFFF;
+            border-color: var(--color-orange);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(255, 165, 0, 0.3);
+        }
+        .team-contact i {
+            font-size: 1.1rem;
+        }
+        .team-contact .whatsapp-contact:hover {
+            background-color: #25D366;
+            border-color: #25D366;
+            box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3);
+        }
+        
         .layered-scroll-container { position: relative; }
         .layered-scroll-section {
             height: 100vh;
@@ -520,9 +619,18 @@
             text-align: center; color: #a0a0a0; font-size: 0.9rem;
         }
 
+        @media (max-width: 1200px) {
+            .team-member {
+                width: calc(25% - 1rem);
+            }
+        }
+
         @media (max-width: 1024px) {
             .contact-container { grid-template-columns: 1fr; }
             .gallery-columns { columns: 2; }
+            .team-member {
+                width: calc(33.333% - 1rem);
+            }
         }
         @media (max-width: 768px) {
             .header-content { height: 90px; }
@@ -530,6 +638,20 @@
             .nav-menu { display: none; }
             .mobile-menu-toggle { display: block; }
             section { padding: 4rem 1.5rem; }
+            
+            .team-section {
+                padding: 4rem 1.5rem;
+            }
+            .team-member {
+                width: 100%;
+                max-width: 350px;
+                margin: 0 auto;
+            }
+            .team-grid {
+                flex-direction: column;
+                align-items: center;
+                gap: 3rem;
+            }
             
             .about-container {
                 grid-template-columns: 1fr;
@@ -567,7 +689,7 @@
             .footer-content { flex-direction: column; justify-content: center; text-align: center; }
             .footer-nav ul { 
                 flex-direction: row; 
-                flex-wrap: wrap; /* ALTERADO: Permite a quebra de linha */
+                flex-wrap: wrap;
                 justify-content: center;
                 gap: 1.5rem; 
                 padding: 0;
@@ -592,6 +714,7 @@
                     <li><a href="#hero">Home</a></li>
                     <li><a href="#about">Quem Somos</a></li>
                     <li><a href="#diferenciais">Diferenciais</a></li>
+                    <li><a href="#team">Equipe</a></li>
                     <li><a href="#brands">Marcas</a></li>
                     <li><a href="#showroom">Ambientes</a></li>
                     <li><a href="#contact">Contato</a></li>
@@ -611,6 +734,7 @@
                 <li><a href="#hero">Home</a></li>
                 <li><a href="#about">Quem Somos</a></li>
                 <li><a href="#diferenciais">Diferenciais</a></li>
+                <li><a href="#team">Equipe</a></li>
                 <li><a href="#brands">Marcas</a></li>
                 <li><a href="#showroom">Ambientes</a></li>
                 <li><a href="#contact">Contato</a></li>
@@ -677,8 +801,108 @@
                 </div>
             </section>
         </div>
+
+        <!-- Team Section -->
+        <section class="team-section" id="team">
+            <div class="team-container">
+                <div class="section-title-wrapper">
+                    <h2 class="section-title animated-text-container-word">Nossa Equipe</h2>
+                </div>
+                <div class="team-grid">
+                    <div class="team-member">
+                        <div class="team-photo">
+                            <img src="https://pagedone.io/asset/uploads/1698649968.png" alt="Marina Silva" />
+                        </div>
+                        <h4 class="team-name">Marina Silva</h4>
+                        <span class="team-role">Consultora de Vendas</span>
+                        <div class="team-contact">
+                            <a href="https://wa.me/5511987654321?text=Olá Marina! Gostaria de conversar sobre produtos da Espaço Revestir." class="whatsapp-contact" target="_blank">
+                                <i class="fab fa-whatsapp"></i>
+                                (11) 98765-4321
+                            </a>
+                            <a href="mailto:marina@espacorevestirmogi.com.br">
+                                <i class="fas fa-envelope"></i>
+                                marina@espacorevestirmogi.com.br
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="team-member">
+                        <div class="team-photo">
+                            <img src="https://pagedone.io/asset/uploads/1698650000.png" alt="Carlos Mendes" />
+                        </div>
+                        <h4 class="team-name">Carlos Mendes</h4>
+                        <span class="team-role">Gerente Comercial</span>
+                        <div class="team-contact">
+                            <a href="https://wa.me/5511976543210?text=Olá Carlos! Gostaria de conversar sobre soluções comerciais da Espaço Revestir." class="whatsapp-contact" target="_blank">
+                                <i class="fab fa-whatsapp"></i>
+                                (11) 97654-3210
+                            </a>
+                            <a href="mailto:carlos@espacorevestirmogi.com.br">
+                                <i class="fas fa-envelope"></i>
+                                carlos@espacorevestirmogi.com.br
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="team-member">
+                        <div class="team-photo">
+                            <img src="https://pagedone.io/asset/uploads/1698659360.png" alt="Ana Carolina" />
+                        </div>
+                        <h4 class="team-name">Ana Carolina</h4>
+                        <span class="team-role">Consultora Especialista</span>
+                        <div class="team-contact">
+                            <a href="https://wa.me/5511965432109?text=Olá Ana! Gostaria de uma consultoria especializada em acabamentos." class="whatsapp-contact" target="_blank">
+                                <i class="fab fa-whatsapp"></i>
+                                (11) 96543-2109
+                            </a>
+                            <a href="mailto:ana@espacorevestirmogi.com.br">
+                                <i class="fas fa-envelope"></i>
+                                ana@espacorevestirmogi.com.br
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="team-member">
+                        <div class="team-photo">
+                            <img src="https://pagedone.io/asset/uploads/1698650109.png" alt="Roberto Santos" />
+                        </div>
+                        <h4 class="team-name">Roberto Santos</h4>
+                        <span class="team-role">Coordenador Técnico</span>
+                        <div class="team-contact">
+                            <a href="https://wa.me/5511954321098?text=Olá Roberto! Preciso de orientação técnica sobre instalação." class="whatsapp-contact" target="_blank">
+                                <i class="fab fa-whatsapp"></i>
+                                (11) 95432-1098
+                            </a>
+                            <a href="mailto:roberto@espacorevestirmogi.com.br">
+                                <i class="fas fa-envelope"></i>
+                                roberto@espacorevestirmogi.com.br
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="team-member">
+                        <div class="team-photo">
+                            <img src="https://pagedone.io/asset/uploads/1698650146.png" alt="Juliana Costa" />
+                        </div>
+                        <h4 class="team-name">Juliana Costa</h4>
+                        <span class="team-role">Atendimento ao Cliente</span>
+                        <div class="team-contact">
+                            <a href="https://wa.me/5511943210987?text=Olá Juliana! Preciso de informações sobre meu pedido." class="whatsapp-contact" target="_blank">
+                                <i class="fab fa-whatsapp"></i>
+                                (11) 94321-0987
+                            </a>
+                            <a href="mailto:juliana@espacorevestirmogi.com.br">
+                                <i class="fas fa-envelope"></i>
+                                juliana@espacorevestirmogi.com.br
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
         
-        <div class="section-divider" style="color: var(--color-background); background-color: transparent; margin-top:-1px;">
+        <div class="section-divider" style="color: var(--color-background); background-color: var(--color-section-white); margin-top:-1px;">
             <svg viewBox="0 0 1440 100" fill="currentColor" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"><path d="M1440 100H0V0C480 66.6667 960 66.6667 1440 0V100Z"></path></svg>
         </div>
 
@@ -707,7 +931,6 @@
                 <div class="gallery-item"><img src="img/deca2.webp" alt="Ambiente 18" /></div>
                 <div class="gallery-item"><img src="img/deca4.webp" alt="Ambiente 19" /></div>
                 <div class="gallery-item"><img src="img/port3.webp" alt="Ambiente 20" /></div>
-
             </div>
         </section>
 
@@ -727,7 +950,7 @@
                     </div>
                     <div class="contact-item">
                         <i class="fas fa-envelope"></i>
-                        <div><h4>Email</h4><p>natalia@espacorevestirmogi.com.br</p></div>
+                        <div><h4>Email</h4><p>administrativo3@espacorevestirmogi.com.br</p></div>
                     </div>
                     <div class="contact-item">
                         <i class="fas fa-clock"></i>
@@ -828,7 +1051,7 @@
                 <h2 class="section-title animated-text-container-word">Visite Nosso Site</h2>
             </div>
             <div>
-                <p >Aponte a câmera do seu celular para o QR Code ou clique no botão para explorar nosso site completo.</p>
+                <p>Aponte a câmera do seu celular para o QR Code ou clique no botão para explorar nosso site completo.</p>
                 <img src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=https://espacorevestirmogi.com.br/site_espa%C3%A7o_revestir/index.html" alt="QR Code para o site Espaço Revestir" class="qr-code-image">
                 <a href="https://espacorevestirmogi.com.br/site_espa%C3%A7o_revestir/index.html" class="visit-btn" target="_blank">Acessar Site</a>
             </div>
@@ -842,6 +1065,7 @@
                 <ul>
                     <li><a href="#hero">Home</a></li>
                     <li><a href="#about">Quem Somos</a></li>
+                    <li><a href="#team">Equipe</a></li>
                     <li><a href="#showroom">Ambientes</a></li>
                     <li><a href="#contact">Contato</a></li>
                 </ul>
