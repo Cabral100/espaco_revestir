@@ -14,7 +14,7 @@
             --color-background: #f8f9fa;
             --color-text: #212529;
             --color-gold: #D4AF37;
-            --color-orange: #FFA500;
+            --color-orange: #FFA500; /* Laranja mais suave */
             --color-subtle: #6c757d;
             --color-section-white: #FFFFFF;
             --font-heading: 'Playfair Display', serif;
@@ -366,63 +366,6 @@
             align-self: flex-start;
         }
         
-        /* ===== ESTILOS DA LISTA DE CONTATOS ===== */
-        .team-contact-list {
-            max-width: 900px;
-            margin: 0 auto;
-            display: flex;
-            flex-direction: column;
-            gap: 2.5rem;
-        }
-        .team-role-group {
-            border-left: 3px solid var(--color-orange);
-            padding-left: 1.5rem;
-        }
-        .team-role-title {
-            font-family: var(--font-heading);
-            font-size: 1.8rem;
-            color: var(--color-text);
-            margin-bottom: 1.5rem;
-            text-align: left;
-        }
-        .team-contact-person {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            align-items: center;
-            gap: 1rem;
-            padding: 1rem 0;
-            border-bottom: 1px solid #e0e0e0;
-        }
-        .team-role-group .team-contact-person:last-child {
-            border-bottom: none;
-        }
-        .person-name {
-            font-size: 1.2rem;
-            font-weight: 600;
-            color: var(--color-text);
-        }
-        .person-links {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 1.5rem;
-        }
-        .person-links a {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            text-decoration: none;
-            color: var(--color-subtle);
-            transition: color 0.3s ease;
-            font-size: 0.9rem;
-        }
-        .person-links a:hover {
-            color: var(--color-orange);
-        }
-        .person-links a i {
-            font-size: 1.1rem;
-        }
-        
         .layered-scroll-container { position: relative; }
         .layered-scroll-section {
             height: 100vh;
@@ -454,6 +397,8 @@
             transition: opacity 0.8s ease-out, transform 0.8s ease-out;
         }
         .gallery-item.visible img { opacity: 1; transform: translateY(0); }
+
+        /* SEÇÃO DE CONTATO PRINCIPAL */
         .contact-section { background-color: var(--color-section-white); }
         .contact-container {
             max-width: 1200px; margin: 0 auto; display: grid;
@@ -470,6 +415,47 @@
         }
         .map-container { overflow: hidden; height: 100%; min-height: 500px; }
         .map-container iframe { width: 100%; height: 100%; border: none; }
+        
+        /* === NOVA SEÇÃO PARA CONTATOS DA EQUIPE === */
+        .team-contact-section { 
+            background-color: var(--color-section-white);
+            padding: 4rem 2rem 6rem 2rem; /* Espaçamento ajustado */
+            border-top: 1px solid #eee;
+        }
+        .team-contact-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 3rem;
+        }
+        .team-contact-group h4 {
+            font-family: var(--font-heading);
+            font-size: 1.6rem;
+            margin-bottom: 1.5rem;
+            color: var(--color-text);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        .team-contact-group h4 i { 
+            color: var(--color-orange);
+            font-size: 1.5rem;
+        }
+        .team-contact-group .contact-item { 
+            margin-bottom: 1rem; 
+        }
+        .team-contact-group .contact-item div p,
+        .team-contact-group .contact-item div a { 
+            color: var(--color-subtle); 
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        .team-contact-group .contact-item div a:hover { 
+            color: var(--color-orange);
+        }
+        /* === FIM DOS ESTILOS DA NOVA SEÇÃO === */
+
         .form-section { background-color: var(--color-background); }
         .form-container { max-width: 700px; margin: 0 auto; }
         .contact-form { background: var(--color-section-white); padding: 3rem; box-shadow: 0 8px 30px rgba(0,0,0,0.05); }
@@ -582,23 +568,11 @@
             .gallery-columns { columns: 2; }
         }
         @media (max-width: 768px) {
-            .site-header { padding: 0.5rem 1.5rem; }
             .header-content { height: 90px; }
             .header-logo { height: 80px; }
             .nav-menu { display: none; }
             .mobile-menu-toggle { display: block; }
             section { padding: 4rem 1.5rem; }
-            
-            .team-contact-person {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 0.5rem;
-            }
-            .person-links {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 0.8rem;
-            }
             
             .about-container {
                 grid-template-columns: 1fr;
@@ -627,7 +601,7 @@
                 min-height: 350px;
             }
             .visit-btn {
-                padding: 1rem;
+                padding: 1rem 3rem;
                 width: 100%;
                 max-width: 400px;
             }
@@ -638,12 +612,18 @@
                 flex-direction: row; 
                 flex-wrap: wrap;
                 justify-content: center;
-                gap: 1rem 1.5rem; 
+                gap: 1.5rem; 
                 padding: 0;
                 width: 100%;
             }
             .footer-nav ul a {
                 white-space: nowrap;
+            }
+            .team-contact-container {
+                grid-template-columns: 1fr;
+            }
+            .team-contact-section {
+                padding: 3rem 1.5rem 4rem 1.5rem;
             }
         }
     </style>
@@ -747,7 +727,7 @@
             </section>
         </div>
         
-        <div class="section-divider" style="color: var(--color-background); background-color: var(--color-section-white); margin-top:-1px;">
+        <div class="section-divider" style="color: var(--color-background); background-color: transparent; margin-top:-1px;">
             <svg viewBox="0 0 1440 100" fill="currentColor" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"><path d="M1440 100H0V0C480 66.6667 960 66.6667 1440 0V100Z"></path></svg>
         </div>
 
@@ -776,6 +756,7 @@
                 <div class="gallery-item"><img src="img/deca2.webp" alt="Ambiente 18" /></div>
                 <div class="gallery-item"><img src="img/deca4.webp" alt="Ambiente 19" /></div>
                 <div class="gallery-item"><img src="img/port3.webp" alt="Ambiente 20" /></div>
+
             </div>
         </section>
 
@@ -784,15 +765,12 @@
         </div>
 
         <section class="contact-section" id="contact">
-            <div class="section-title-wrapper">
+             <div class="section-title-wrapper">
                 <h2 class="section-title animated-text-container-word">Entre em Contato</h2>
             </div>
             <div class="contact-container">
                 <div class="contact-info-section">
-                    <div class="contact-item">
-                        <i class="fas fa-envelope"></i>
-                        <div><h4>Email</h4><p>administrativo3@espacorevestirmogi.com.br</p></div>
-                    </div>
+                    
                     <div class="contact-item">
                         <i class="fas fa-clock"></i>
                         <div><h4>Horário</h4><p>Segunda a Sexta: 8h às 18h<br>Sábado: 8h às 15h</p></div>
@@ -803,68 +781,56 @@
                     </div>
                 </div>
                 <div class="map-container">
-                    <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d7316.909392975385!2d-46.189415!3d-23.516143!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94cdd822b43d637d%3A0x2ff2c4974151eeac!2sEspa%C3%A7o%20Revestir%20Mogi!5e0!3m2!1spt-BR!2sbr!4v1758045755823!5m2!1spt-BR!2sbr" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3658.118991208945!2d-46.18375468493!3d-23.52784698469954!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94ce7b0e71f2c2ad%3A0x7a7b8e4e9a0c6e1!2sAv.%20Ver.%20Narciso%20Yague%20Guimar%C3%A3es%2C%201001%20-%20Vila%20Partenio%2C%20Mogi%20das%20Cruzes%20-%20SP%2C%2008780-200!5e0!3m2!1spt-BR!2sbr!4v1695487293123!5m2!1spt-BR!2sbr" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                 </div>
             </div>
+        </section>
 
-            <div class="section-title-wrapper" style="margin-top: 6rem; margin-bottom: 3rem;">
-                <h2 class="section-title">Fale com um Especialista</h2>
-            </div>
-            <div class="team-contact-list">
-                <div class="team-role-group">
-                    <h3 class="team-role-title">Gerente</h3>
-                    <div class="team-contact-person">
-                        <span class="person-name">Carlos Mendes</span>
-                        <div class="person-links">
-                            <a href="https://wa.me/5511976543210" target="_blank"><i class="fab fa-whatsapp"></i> (11) 97654-3210</a>
-                            <a href="mailto:carlos@espacorevestirmogi.com.br"><i class="fas fa-envelope"></i> carlos@espacorevestirmogi.com.br</a>
+        <section class="team-contact-section">
+            <div class="team-contact-container">
+                <div class="team-contact-group">
+                    <h4><i class="fas fa-user-tie"></i>Gerente</h4>
+                    <div class="contact-item">
+                        <div>
+                            <p><strong>Nome:</strong> (Nome do Gerente)</p>
+                            <p><strong>Email:</strong> <a href="mailto:gerente@espacorevestirmogi.com.br">gerente@espacorevestir.com.br</a></p>
+                            <p><strong>WhatsApp:</strong> <a href="https://wa.me/55119XXXXXXXX" target="_blank">+55 11 9XXXX-XXXX</a></p>
                         </div>
                     </div>
                 </div>
-                <div class="team-role-group">
-                    <h3 class="team-role-title">Coordenadora</h3>
-                    <div class="team-contact-person">
-                        <span class="person-name">Ana Carolina</span>
-                        <div class="person-links">
-                            <a href="https://wa.me/5511965432109" target="_blank"><i class="fab fa-whatsapp"></i> (11) 96543-2109</a>
-                            <a href="mailto:ana@espacorevestirmogi.com.br"><i class="fas fa-envelope"></i> ana@espacorevestirmogi.com.br</a>
+                <div class="team-contact-group">
+                    <h4><i class="fas fa-user-cog"></i>Coordenadora</h4>
+                    <div class="contact-item">
+                         <div>
+                            <p><strong>Nome:</strong> (Nome da Coordenadora)</p>
+                            <p><strong>Email:</strong> <a href="mailto:coordenadora@espacorevestirmogi.com.br">coordenadora@espacorevestir.com.br</a></p>
+                            <p><strong>WhatsApp:</strong> <a href="https://wa.me/55119XXXXXXXX" target="_blank">+55 11 9XXXX-XXXX</a></p>
                         </div>
                     </div>
                 </div>
-                <div class="team-role-group">
-                    <h3 class="team-role-title">Consultores de Revestimento</h3>
-                    <div class="team-contact-person">
-                        <span class="person-name">Marina Silva</span>
-                        <div class="person-links">
-                            <a href="https://wa.me/5511987654321" target="_blank"><i class="fab fa-whatsapp"></i> (11) 98765-4321</a>
-                            <a href="mailto:marina@espacorevestirmogi.com.br"><i class="fas fa-envelope"></i> marina@espacorevestirmogi.com.br</a>
-                        </div>
-                    </div>
-                    <div class="team-contact-person">
-                        <span class="person-name">Roberto Santos</span>
-                        <div class="person-links">
-                            <a href="https://wa.me/5511954321098" target="_blank"><i class="fab fa-whatsapp"></i> (11) 95432-1098</a>
-                            <a href="mailto:roberto@espacorevestirmogi.com.br"><i class="fas fa-envelope"></i> roberto@espacorevestirmogi.com.br</a>
+                <div class="team-contact-group">
+                    <h4><i class="fas fa-layer-group"></i>Consultores de Revestimentos</h4>
+                    <div class="contact-item">
+                         <div>
+                            <p><strong>Nome:</strong> (Nome do Consultor 1)</p>
+                            <p><strong>Email:</strong> <a href="mailto:revestimentos1@espacorevestirmogi.com.br">revestimentos1@espacorevestir.com.br</a></p>
+                            <p><strong>WhatsApp:</strong> <a href="https://wa.me/55119XXXXXXXX" target="_blank">+55 11 9XXXX-XXXX</a></p>
                         </div>
                     </div>
                 </div>
-                <div class="team-role-group">
-                    <h3 class="team-role-title">Consultores de Metais</h3>
-                    <div class="team-contact-person">
-                        <span class="person-name">Juliana Costa</span>
-                        <div class="person-links">
-                            <a href="https://wa.me/5511943210987" target="_blank"><i class="fab fa-whatsapp"></i> (11) 94321-0987</a>
-                            <a href="mailto:juliana@espacorevestirmogi.com.br"><i class="fas fa-envelope"></i> juliana@espacorevestirmogi.com.br</a>
+                <div class="team-contact-group">
+                    <h4><i class="fas fa-shower"></i>Consultores de Louças e Metais</h4>
+                    <div class="contact-item">
+                         <div>
+                            <p><strong>Nome:</strong> (Nome do Consultor 2)</p>
+                            <p><strong>Email:</strong> <a href="mailto:metais1@espacorevestirmogi.com.br">metais1@espacorevestir.com.br</a></p>
+                            <p><strong>WhatsApp:</strong> <a href="https://wa.me/55119XXXXXXXX" target="_blank">+55 11 9XXXX-XXXX</a></p>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
-
-        <div class="section-divider" style="color: var(--color-background); background-color: var(--color-section-white);">
-            <svg viewBox="0 0 1440 100" fill="currentColor" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"><path d="M1440 100H0V0C480 66.6667 960 66.6667 1440 0V100Z"></path></svg>
-        </div>
-
+        
         <section class="form-section">
            <div class="form-container">
                 <div class="contact-form">
@@ -945,7 +911,7 @@
                 <h2 class="section-title animated-text-container-word">Visite Nosso Site</h2>
             </div>
             <div>
-                <p>Aponte a câmera do seu celular para o QR Code ou clique no botão para explorar nosso site completo.</p>
+                <p >Aponte a câmera do seu celular para o QR Code ou clique no botão para explorar nosso site completo.</p>
                 <img src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=https://espacorevestirmogi.com.br/site_espa%C3%A7o_revestir/index.html" alt="QR Code para o site Espaço Revestir" class="qr-code-image">
                 <a href="https://espacorevestirmogi.com.br/site_espa%C3%A7o_revestir/index.html" class="visit-btn" target="_blank">Acessar Site</a>
             </div>
@@ -1121,7 +1087,7 @@
                     }
                 });
             }
-            
+
             document.querySelectorAll('a[href^="#"]').forEach(anchor => {
                 anchor.addEventListener('click', function(e) {
                     e.preventDefault();
