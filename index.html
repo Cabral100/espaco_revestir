@@ -184,7 +184,6 @@
         .mobile-menu-overlay.active .mobile-nav-menu li:nth-child(4) { transition-delay: 0.35s; }
         .mobile-menu-overlay.active .mobile-nav-menu li:nth-child(5) { transition-delay: 0.4s; }
         .mobile-menu-overlay.active .mobile-nav-menu li:nth-child(6) { transition-delay: 0.45s; }
-        .mobile-menu-overlay.active .mobile-nav-menu li:nth-child(7) { transition-delay: 0.5s; }
         .mobile-nav-menu a {
             color: var(--color-text);
             text-decoration: none;
@@ -367,135 +366,63 @@
             align-self: flex-start;
         }
         
-        /* Team Section Styles */
-        .team-section {
-            background-color: var(--color-section-white);
-            padding: 6rem 2rem;
-        }
-        .team-container {
-            max-width: 1400px;
+        /* ===== ESTILOS DA LISTA DE CONTATOS ===== */
+        .team-contact-list {
+            max-width: 900px;
             margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 2.5rem;
         }
-        .team-grid {
+        .team-role-group {
+            border-left: 3px solid var(--color-orange);
+            padding-left: 1.5rem;
+        }
+        .team-role-title {
+            font-family: var(--font-heading);
+            font-size: 1.8rem;
+            color: var(--color-text);
+            margin-bottom: 1.5rem;
+            text-align: left;
+        }
+        .team-contact-person {
             display: flex;
             flex-wrap: wrap;
-            justify-content: center;
-            gap: 3rem 2rem;
-        }
-        .team-member {
-            display: block;
-            text-align: center;
-            width: calc(20% - 1rem);
-            min-width: 280px;
-            transition: transform 0.3s ease, opacity 0.3s ease;
-        }
-        .team-member:hover {
-            transform: translateY(-10px);
-        }
-        .team-photo {
-            position: relative;
-            margin-bottom: 1.5rem;
-        }
-        .team-photo img {
-            width: 140px;
-            height: 140px;
-            border-radius: 20px;
-            object-fit: cover;
-            margin: 0 auto;
-            display: block;
-            border: 3px solid transparent;
-            transition: all 0.4s ease;
-        }
-        .team-member:hover .team-photo img {
-            border-color: var(--color-orange);
-            transform: scale(1.05);
-        }
-        .team-name {
-            font-size: 1.3rem;
-            color: var(--color-text);
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-            transition: color 0.3s ease;
-        }
-        .team-member:hover .team-name {
-            color: var(--color-orange);
-        }
-        .team-role {
-            color: var(--color-subtle);
-            font-size: 1rem;
-            margin-bottom: 1.5rem;
-            transition: color 0.3s ease;
-        }
-        .team-member:hover .team-role {
-            color: var(--color-text);
-        }
-        .team-contact {
-            display: flex;
-            flex-direction: column;
-            gap: 0.8rem;
-            align-items: center;
-        }
-        .team-contact a {
-            display: flex;
-            align-items: center;
-            gap: 0.8rem;
-            color: var(--color-text);
-            text-decoration: none;
-            padding: 0.6rem 1.2rem;
-            border: 2px solid #e0e0e0;
-            border-radius: 25px;
-            transition: all 0.3s ease;
-            font-size: 0.9rem;
-            min-width: 180px;
-            justify-content: center;
-        }
-        .team-contact a:hover {
-            background-color: var(--color-orange);
-            color: #FFFFFF;
-            border-color: var(--color-orange);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(255, 165, 0, 0.3);
-        }
-        .team-contact i {
-            font-size: 1.1rem;
-        }
-        .team-contact .whatsapp-contact:hover {
-            background-color: #25D366;
-            border-color: #25D366;
-            box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3);
-        }
-
-        /* ===== ESTILOS DA BUSCA - INÍCIO ===== */
-        .team-search-container {
-            display: flex;
-            flex-direction: column;
+            justify-content: space-between;
             align-items: center;
             gap: 1rem;
-            max-width: 500px;
-            margin: -2rem auto 4rem;
+            padding: 1rem 0;
+            border-bottom: 1px solid #e0e0e0;
         }
-        #teamSearchInput {
-            width: 100%;
-            padding: 12px 18px;
-            font-size: 1rem;
-            border: 1px solid #ccc;
-            background: #f0f0f0;
+        .team-role-group .team-contact-person:last-child {
+            border-bottom: none;
+        }
+        .person-name {
+            font-size: 1.2rem;
+            font-weight: 600;
             color: var(--color-text);
-            border-radius: 25px;
         }
-        #teamSearchInput:focus {
-            outline: none;
-            border-color: var(--color-orange);
-            box-shadow: 0 0 0 3px rgba(255, 165, 0, 0.2);
+        .person-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
         }
-        .no-results-message {
-            text-align: center;
-            margin-top: 2rem;
-            font-size: 1.1rem;
+        .person-links a {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
             color: var(--color-subtle);
+            transition: color 0.3s ease;
+            font-size: 0.9rem;
         }
-        /* ===== ESTILOS DA BUSCA - FIM ===== */
-
+        .person-links a:hover {
+            color: var(--color-orange);
+        }
+        .person-links a i {
+            font-size: 1.1rem;
+        }
+        
         .layered-scroll-container { position: relative; }
         .layered-scroll-section {
             height: 100vh;
@@ -650,18 +577,9 @@
             text-align: center; color: #a0a0a0; font-size: 0.9rem;
         }
 
-        @media (max-width: 1200px) {
-            .team-member {
-                width: calc(25% - 1.5rem);
-            }
-        }
-
         @media (max-width: 1024px) {
             .contact-container { grid-template-columns: 1fr; }
             .gallery-columns { columns: 2; }
-            .team-member {
-                width: calc(33.333% - 1.5rem);
-            }
         }
         @media (max-width: 768px) {
             .site-header { padding: 0.5rem 1.5rem; }
@@ -671,23 +589,15 @@
             .mobile-menu-toggle { display: block; }
             section { padding: 4rem 1.5rem; }
             
-            .team-section {
-                padding: 4rem 1.5rem;
-            }
-            .team-member {
-                width: 100%;
-                max-width: 350px;
-                margin: 0 auto;
-            }
-            .team-grid {
+            .team-contact-person {
                 flex-direction: column;
-                align-items: center;
-                gap: 3rem;
+                align-items: flex-start;
+                gap: 0.5rem;
             }
-             .team-contact a {
-                min-width: auto; /* Remove largura mínima em telas pequenas */
-                width: 100%;
-                max-width: 300px;
+            .person-links {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.8rem;
             }
             
             .about-container {
@@ -751,7 +661,6 @@
                     <li><a href="#hero">Home</a></li>
                     <li><a href="#about">Quem Somos</a></li>
                     <li><a href="#diferenciais">Diferenciais</a></li>
-                    <li><a href="#team">Equipe</a></li>
                     <li><a href="#brands">Marcas</a></li>
                     <li><a href="#showroom">Ambientes</a></li>
                     <li><a href="#contact">Contato</a></li>
@@ -771,7 +680,6 @@
                 <li><a href="#hero">Home</a></li>
                 <li><a href="#about">Quem Somos</a></li>
                 <li><a href="#diferenciais">Diferenciais</a></li>
-                <li><a href="#team">Equipe</a></li>
                 <li><a href="#brands">Marcas</a></li>
                 <li><a href="#showroom">Ambientes</a></li>
                 <li><a href="#contact">Contato</a></li>
@@ -838,110 +746,6 @@
                 </div>
             </section>
         </div>
-
-        <section class="team-section" id="team">
-            <div class="team-container">
-                <div class="section-title-wrapper">
-                    <h2 class="section-title animated-text-container-word">Nossa Equipe</h2>
-                </div>
-
-                <div class="team-search-container">
-                    <input type="search" id="teamSearchInput" placeholder="Buscar consultor pelo nome...">
-                </div>
-                <div class="team-grid">
-                    <div class="team-member">
-                        <div class="team-photo">
-                            <img src="https://pagedone.io/asset/uploads/1698649968.png" alt="Marina Silva" />
-                        </div>
-                        <h4 class="team-name">Marina Silva</h4>
-                        <span class="team-role">Consultora de Vendas</span>
-                        <div class="team-contact">
-                            <a href="https://wa.me/5511987654321?text=Olá Marina! Gostaria de conversar sobre produtos da Espaço Revestir." class="whatsapp-contact" target="_blank">
-                                <i class="fab fa-whatsapp"></i>
-                                (11) 98765-4321
-                            </a>
-                            <a href="mailto:marina@espacorevestirmogi.com.br">
-                                <i class="fas fa-envelope"></i>
-                                marina@espacorevestirmogi.com.br
-                            </a>
-                        </div>
-                    </div>
-                    
-                    <div class="team-member">
-                        <div class="team-photo">
-                            <img src="https://pagedone.io/asset/uploads/1698650000.png" alt="Carlos Mendes" />
-                        </div>
-                        <h4 class="team-name">Carlos Mendes</h4>
-                        <span class="team-role">Gerente Comercial</span>
-                        <div class="team-contact">
-                            <a href="https://wa.me/5511976543210?text=Olá Carlos! Gostaria de conversar sobre soluções comerciais da Espaço Revestir." class="whatsapp-contact" target="_blank">
-                                <i class="fab fa-whatsapp"></i>
-                                (11) 97654-3210
-                            </a>
-                            <a href="mailto:carlos@espacorevestirmogi.com.br">
-                                <i class="fas fa-envelope"></i>
-                                carlos@espacorevestirmogi.com.br
-                            </a>
-                        </div>
-                    </div>
-                    
-                    <div class="team-member">
-                        <div class="team-photo">
-                            <img src="https://pagedone.io/asset/uploads/1698659360.png" alt="Ana Carolina" />
-                        </div>
-                        <h4 class="team-name">Ana Carolina</h4>
-                        <span class="team-role">Consultora Especialista</span>
-                        <div class="team-contact">
-                            <a href="https://wa.me/5511965432109?text=Olá Ana! Gostaria de uma consultoria especializada em acabamentos." class="whatsapp-contact" target="_blank">
-                                <i class="fab fa-whatsapp"></i>
-                                (11) 96543-2109
-                            </a>
-                            <a href="mailto:ana@espacorevestirmogi.com.br">
-                                <i class="fas fa-envelope"></i>
-                                ana@espacorevestirmogi.com.br
-                            </a>
-                        </div>
-                    </div>
-                    
-                    <div class="team-member">
-                        <div class="team-photo">
-                            <img src="https://pagedone.io/asset/uploads/1698650109.png" alt="Roberto Santos" />
-                        </div>
-                        <h4 class="team-name">Roberto Santos</h4>
-                        <span class="team-role">Coordenador Técnico</span>
-                        <div class="team-contact">
-                            <a href="https://wa.me/5511954321098?text=Olá Roberto! Preciso de orientação técnica sobre instalação." class="whatsapp-contact" target="_blank">
-                                <i class="fab fa-whatsapp"></i>
-                                (11) 95432-1098
-                            </a>
-                            <a href="mailto:roberto@espacorevestirmogi.com.br">
-                                <i class="fas fa-envelope"></i>
-                                roberto@espacorevestirmogi.com.br
-                            </a>
-                        </div>
-                    </div>
-                    
-                    <div class="team-member">
-                        <div class="team-photo">
-                            <img src="https://pagedone.io/asset/uploads/1698650146.png" alt="Juliana Costa" />
-                        </div>
-                        <h4 class="team-name">Juliana Costa</h4>
-                        <span class="team-role">Atendimento ao Cliente</span>
-                        <div class="team-contact">
-                            <a href="https://wa.me/5511943210987?text=Olá Juliana! Preciso de informações sobre meu pedido." class="whatsapp-contact" target="_blank">
-                                <i class="fab fa-whatsapp"></i>
-                                (11) 94321-0987
-                            </a>
-                            <a href="mailto:juliana@espacorevestirmogi.com.br">
-                                <i class="fas fa-envelope"></i>
-                                juliana@espacorevestirmogi.com.br
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <p id="noResultsMessage" class="no-results-message" style="display: none;">Nenhum consultor encontrado.</p>
-            </div>
-        </section>
         
         <div class="section-divider" style="color: var(--color-background); background-color: var(--color-section-white); margin-top:-1px;">
             <svg viewBox="0 0 1440 100" fill="currentColor" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"><path d="M1440 100H0V0C480 66.6667 960 66.6667 1440 0V100Z"></path></svg>
@@ -980,15 +784,11 @@
         </div>
 
         <section class="contact-section" id="contact">
-             <div class="section-title-wrapper">
+            <div class="section-title-wrapper">
                 <h2 class="section-title animated-text-container-word">Entre em Contato</h2>
             </div>
             <div class="contact-container">
                 <div class="contact-info-section">
-                     <div class="contact-item">
-                        <i class="fas fa-phone"></i>
-                        <div><h4>Telefone</h4><p><a href="tel:+5511990186426">+55 11 99018-6426</a></p></div>
-                    </div>
                     <div class="contact-item">
                         <i class="fas fa-envelope"></i>
                         <div><h4>Email</h4><p>administrativo3@espacorevestirmogi.com.br</p></div>
@@ -1004,6 +804,59 @@
                 </div>
                 <div class="map-container">
                     <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d7316.909392975385!2d-46.189415!3d-23.516143!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94cdd822b43d637d%3A0x2ff2c4974151eeac!2sEspa%C3%A7o%20Revestir%20Mogi!5e0!3m2!1spt-BR!2sbr!4v1758045755823!5m2!1spt-BR!2sbr" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+            </div>
+
+            <div class="section-title-wrapper" style="margin-top: 6rem; margin-bottom: 3rem;">
+                <h2 class="section-title">Fale com um Especialista</h2>
+            </div>
+            <div class="team-contact-list">
+                <div class="team-role-group">
+                    <h3 class="team-role-title">Gerente</h3>
+                    <div class="team-contact-person">
+                        <span class="person-name">Carlos Mendes</span>
+                        <div class="person-links">
+                            <a href="https://wa.me/5511976543210" target="_blank"><i class="fab fa-whatsapp"></i> (11) 97654-3210</a>
+                            <a href="mailto:carlos@espacorevestirmogi.com.br"><i class="fas fa-envelope"></i> carlos@espacorevestirmogi.com.br</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="team-role-group">
+                    <h3 class="team-role-title">Coordenadora</h3>
+                    <div class="team-contact-person">
+                        <span class="person-name">Ana Carolina</span>
+                        <div class="person-links">
+                            <a href="https://wa.me/5511965432109" target="_blank"><i class="fab fa-whatsapp"></i> (11) 96543-2109</a>
+                            <a href="mailto:ana@espacorevestirmogi.com.br"><i class="fas fa-envelope"></i> ana@espacorevestirmogi.com.br</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="team-role-group">
+                    <h3 class="team-role-title">Consultores de Revestimento</h3>
+                    <div class="team-contact-person">
+                        <span class="person-name">Marina Silva</span>
+                        <div class="person-links">
+                            <a href="https://wa.me/5511987654321" target="_blank"><i class="fab fa-whatsapp"></i> (11) 98765-4321</a>
+                            <a href="mailto:marina@espacorevestirmogi.com.br"><i class="fas fa-envelope"></i> marina@espacorevestirmogi.com.br</a>
+                        </div>
+                    </div>
+                    <div class="team-contact-person">
+                        <span class="person-name">Roberto Santos</span>
+                        <div class="person-links">
+                            <a href="https://wa.me/5511954321098" target="_blank"><i class="fab fa-whatsapp"></i> (11) 95432-1098</a>
+                            <a href="mailto:roberto@espacorevestirmogi.com.br"><i class="fas fa-envelope"></i> roberto@espacorevestirmogi.com.br</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="team-role-group">
+                    <h3 class="team-role-title">Consultores de Metais</h3>
+                    <div class="team-contact-person">
+                        <span class="person-name">Juliana Costa</span>
+                        <div class="person-links">
+                            <a href="https://wa.me/5511943210987" target="_blank"><i class="fab fa-whatsapp"></i> (11) 94321-0987</a>
+                            <a href="mailto:juliana@espacorevestirmogi.com.br"><i class="fas fa-envelope"></i> juliana@espacorevestirmogi.com.br</a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -1106,7 +959,6 @@
                 <ul>
                     <li><a href="#hero">Home</a></li>
                     <li><a href="#about">Quem Somos</a></li>
-                    <li><a href="#team">Equipe</a></li>
                     <li><a href="#showroom">Ambientes</a></li>
                     <li><a href="#contact">Contato</a></li>
                 </ul>
@@ -1270,39 +1122,6 @@
                 });
             }
             
-            // ===== SCRIPT DA BUSCA DA EQUIPE - INÍCIO =====
-            const searchInput = document.getElementById('teamSearchInput');
-            const teamMembers = document.querySelectorAll('.team-member');
-            const noResultsMessage = document.getElementById('noResultsMessage');
-
-            if (searchInput) {
-                searchInput.addEventListener('input', () => {
-                    const searchTerm = searchInput.value.toLowerCase().trim();
-                    let membersFound = 0;
-
-                    teamMembers.forEach(member => {
-                        const memberNameElement = member.querySelector('.team-name');
-                        const memberName = memberNameElement ? memberNameElement.textContent.toLowerCase() : '';
-                        
-                        // Verifica se o nome do membro começa com o termo pesquisado
-                        if (memberName.startsWith(searchTerm)) {
-                            member.style.display = 'block';
-                            membersFound++;
-                        } else {
-                            member.style.display = 'none';
-                        }
-                    });
-
-                    // Mostra ou esconde a mensagem de "nenhum resultado"
-                    if (membersFound === 0) {
-                        noResultsMessage.style.display = 'block';
-                    } else {
-                        noResultsMessage.style.display = 'none';
-                    }
-                });
-            }
-            // ===== SCRIPT DA BUSCA DA EQUIPE - FIM =====
-
             document.querySelectorAll('a[href^="#"]').forEach(anchor => {
                 anchor.addEventListener('click', function(e) {
                     e.preventDefault();
