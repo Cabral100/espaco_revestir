@@ -398,7 +398,6 @@
         }
         .gallery-item.visible img { opacity: 1; transform: translateY(0); }
 
-        /* SEÇÃO DE CONTATO PRINCIPAL */
         .contact-section { background-color: var(--color-section-white); }
         .contact-container {
             max-width: 1200px; margin: 0 auto; display: grid;
@@ -416,42 +415,81 @@
         .map-container { overflow: hidden; height: 100%; min-height: 500px; }
         .map-container iframe { width: 100%; height: 100%; border: none; }
         
-        /* === NOVA SEÇÃO PARA CONTATOS DA EQUIPE === */
+        /* === NOVA SEÇÃO DE BUSCA DE CONSULTORES === */
         .team-contact-section { 
             background-color: var(--color-section-white);
-            padding: 4rem 2rem 6rem 2rem; /* Espaçamento ajustado */
+            padding: 4rem 2rem 6rem 2rem;
             border-top: 1px solid #eee;
         }
+        .search-bar-container {
+            max-width: 700px;
+            margin: 0 auto 3rem auto;
+        }
+        #consultantSearchInput {
+            width: 100%;
+            padding: 16px 20px;
+            font-size: 1rem;
+            background: #f0f0f0;
+            border: 1px solid #ccc;
+            color: var(--color-text);
+            border-radius: 4px; /* Suavizando a borda */
+        }
+        #consultantSearchInput::placeholder {
+            color: #888;
+        }
+
         .team-contact-container {
             max-width: 1200px;
             margin: 0 auto;
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 3rem;
+            gap: 2rem;
         }
-        .team-contact-group h4 {
+        .consultant-card {
+            background-color: #fff;
+            padding: 2rem;
+            border: 1px solid #eaeaea;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .consultant-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+        }
+        .consultant-card.hidden {
+            display: none;
+        }
+        .consultant-card h4 {
             font-family: var(--font-heading);
-            font-size: 1.6rem;
-            margin-bottom: 1.5rem;
-            color: var(--color-text);
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-        .team-contact-group h4 i { 
-            color: var(--color-orange);
             font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--color-text);
         }
-        .team-contact-group .contact-item { 
-            margin-bottom: 1rem; 
+        .consultant-card .role {
+            color: var(--color-subtle);
+            margin-bottom: 1.5rem;
+            font-style: italic;
         }
-        .team-contact-group .contact-item div p,
-        .team-contact-group .contact-item div a { 
-            color: var(--color-subtle); 
+        .consultant-contact-info {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 0.8rem;
+        }
+        .consultant-contact-info i {
+            color: var(--color-orange);
+            font-size: 1.1rem;
+            margin-top: 5px;
+            width: 20px;
+            text-align: center;
+        }
+        .consultant-contact-info a {
+            color: var(--color-subtle);
             text-decoration: none;
             transition: color 0.3s ease;
+            word-break: break-all;
         }
-        .team-contact-group .contact-item div a:hover { 
+        .consultant-contact-info a:hover {
             color: var(--color-orange);
         }
         /* === FIM DOS ESTILOS DA NOVA SEÇÃO === */
@@ -756,7 +794,6 @@
                 <div class="gallery-item"><img src="img/deca2.webp" alt="Ambiente 18" /></div>
                 <div class="gallery-item"><img src="img/deca4.webp" alt="Ambiente 19" /></div>
                 <div class="gallery-item"><img src="img/port3.webp" alt="Ambiente 20" /></div>
-
             </div>
         </section>
 
@@ -770,7 +807,6 @@
             </div>
             <div class="contact-container">
                 <div class="contact-info-section">
-                    
                     <div class="contact-item">
                         <i class="fas fa-clock"></i>
                         <div><h4>Horário</h4><p>Segunda a Sexta: 8h às 18h<br>Sábado: 8h às 15h</p></div>
@@ -781,51 +817,107 @@
                     </div>
                 </div>
                 <div class="map-container">
-                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3658.118991208945!2d-46.18375468493!3d-23.52784698469954!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94ce7b0e71f2c2ad%3A0x7a7b8e4e9a0c6e1!2sAv.%20Ver.%20Narciso%20Yague%20Guimar%C3%A3es%2C%201001%20-%20Vila%20Partenio%2C%20Mogi%20das%20Cruzes%20-%20SP%2C%2008780-200!5e0!3m2!1spt-BR!2sbr!4v1695487293123!5m2!1spt-BR!2sbr" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3659.5818960305886!2d-46.18375062464734!3d-23.47528357885915!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94ce7e012e83460b%3A0x86819b1f134cf388!2sAv.%20Ver.%20Narciso%20Yague%20Guimar%C3%A3es%2C%201001%20-%20Vila%20Partenio%2C%20Mogi%20das%20Cruzes%20-%20SP%2C%2008780-210!5e0!3m2!1spt-BR!2sbr!4v1727181676646!5m2!1spt-BR!2sbr" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                 </div>
             </div>
         </section>
 
         <section class="team-contact-section">
-            <div class="team-contact-container">
-                <div class="team-contact-group">
-                    <h4><i class="fas fa-user-tie"></i>Gerente</h4>
-                    <div class="contact-item">
-                        <div>
-                            <p><strong>Nome:</strong> (Nome do Gerente)</p>
-                            <p><strong>Email:</strong> <a href="mailto:gerente@espacorevestirmogi.com.br">gerente@espacorevestir.com.br</a></p>
-                            <p><strong>WhatsApp:</strong> <a href="https://wa.me/55119XXXXXXXX" target="_blank">+55 11 9XXXX-XXXX</a></p>
-                        </div>
+            <div class="section-title-wrapper">
+                <h2 class="section-title">Ache o contato do seu consultor</h2>
+            </div>
+            <div class="search-bar-container">
+                <input type="search" id="consultantSearchInput" placeholder="Digite o nome do consultor...">
+            </div>
+            <div class="team-contact-container" id="consultantList">
+                <div class="consultant-card hidden" data-name="Claudiana">
+                    <h4>Claudiana</h4>
+                    <p class="role">Consultora de Revestimentos</p>
+                    <div class="consultant-contact-info">
+                        <i class="fab fa-whatsapp"></i>
+                        <a href="https://wa.me/5511970613233" target="_blank">(11) 97061-3233</a>
+                    </div>
+                    <div class="consultant-contact-info">
+                        <i class="fas fa-envelope"></i>
+                        <a href="mailto:vendas03@espacorevestirmogi.com.br">vendas03@espacorevestirmogi.com.br</a>
                     </div>
                 </div>
-                <div class="team-contact-group">
-                    <h4><i class="fas fa-user-cog"></i>Coordenadora</h4>
-                    <div class="contact-item">
-                         <div>
-                            <p><strong>Nome:</strong> (Nome da Coordenadora)</p>
-                            <p><strong>Email:</strong> <a href="mailto:coordenadora@espacorevestirmogi.com.br">coordenadora@espacorevestir.com.br</a></p>
-                            <p><strong>WhatsApp:</strong> <a href="https://wa.me/55119XXXXXXXX" target="_blank">+55 11 9XXXX-XXXX</a></p>
-                        </div>
+
+                <div class="consultant-card hidden" data-name="Larissa">
+                    <h4>Larissa</h4>
+                    <p class="role">Consultora de Revestimentos</p>
+                    <div class="consultant-contact-info">
+                        <i class="fab fa-whatsapp"></i>
+                        <a href="https://wa.me/5511976322619" target="_blank">(11) 97632-2619</a>
+                    </div>
+                    <div class="consultant-contact-info">
+                        <i class="fas fa-envelope"></i>
+                        <a href="mailto:vendas01@espacorevestirmogi.com.br">vendas01@espacorevestirmogi.com.br</a>
                     </div>
                 </div>
-                <div class="team-contact-group">
-                    <h4><i class="fas fa-layer-group"></i>Consultores de Revestimentos</h4>
-                    <div class="contact-item">
-                         <div>
-                            <p><strong>Nome:</strong> (Nome do Consultor 1)</p>
-                            <p><strong>Email:</strong> <a href="mailto:revestimentos1@espacorevestirmogi.com.br">revestimentos1@espacorevestir.com.br</a></p>
-                            <p><strong>WhatsApp:</strong> <a href="https://wa.me/55119XXXXXXXX" target="_blank">+55 11 9XXXX-XXXX</a></p>
-                        </div>
+                
+                <div class="consultant-card hidden" data-name="Rafaela">
+                    <h4>Rafaela</h4>
+                    <p class="role">Consultora de Revestimentos</p>
+                    <div class="consultant-contact-info">
+                        <i class="fab fa-whatsapp"></i>
+                        <a href="https://wa.me/5511976311135" target="_blank">(11) 97631-1135</a>
+                    </div>
+                    <div class="consultant-contact-info">
+                        <i class="fas fa-envelope"></i>
+                        <a href="mailto:vendas04@espacorevestirmogi.com.br">vendas04@espacorevestirmogi.com.br</a>
                     </div>
                 </div>
-                <div class="team-contact-group">
-                    <h4><i class="fas fa-shower"></i>Consultores de Louças e Metais</h4>
-                    <div class="contact-item">
-                         <div>
-                            <p><strong>Nome:</strong> (Nome do Consultor 2)</p>
-                            <p><strong>Email:</strong> <a href="mailto:metais1@espacorevestirmogi.com.br">metais1@espacorevestir.com.br</a></p>
-                            <p><strong>WhatsApp:</strong> <a href="https://wa.me/55119XXXXXXXX" target="_blank">+55 11 9XXXX-XXXX</a></p>
-                        </div>
+                
+                <div class="consultant-card hidden" data-name="Danyel">
+                    <h4>Danyel</h4>
+                    <p class="role">Consultor de Revestimentos</p>
+                    <div class="consultant-contact-info">
+                        <i class="fab fa-whatsapp"></i>
+                        <a href="https://wa.me/5511990186469" target="_blank">(11) 99018-6469</a>
+                    </div>
+                    <div class="consultant-contact-info">
+                        <i class="fas fa-envelope"></i>
+                        <a href="mailto:vendas06@espacorevestirmogi.com.br">vendas06@espacorevestirmogi.com.br</a>
+                    </div>
+                </div>
+                
+                <div class="consultant-card hidden" data-name="Nicolas">
+                    <h4>Nicolas</h4>
+                    <p class="role">Consultor de Revestimentos</p>
+                    <div class="consultant-contact-info">
+                        <i class="fab fa-whatsapp"></i>
+                        <a href="https://wa.me/5511990186367" target="_blank">(11) 99018-6367</a>
+                    </div>
+                    <div class="consultant-contact-info">
+                        <i class="fas fa-envelope"></i>
+                        <a href="mailto:vendas05@espacorevestirmogi.com.br">vendas05@espacorevestirmogi.com.br</a>
+                    </div>
+                </div>
+
+                <div class="consultant-card hidden" data-name="Ricardo">
+                    <h4>Ricardo</h4>
+                    <p class="role">Consultor de Louças e Metais</p>
+                    <div class="consultant-contact-info">
+                        <i class="fab fa-whatsapp"></i>
+                        <a href="https://wa.me/5511966217832" target="_blank">(11) 96621-7832</a>
+                    </div>
+                    <div class="consultant-contact-info">
+                        <i class="fas fa-envelope"></i>
+                        <a href="mailto:vendas08@espacorevestirmogi.com.br">vendas08@espacorevestirmogi.com.br</a>
+                    </div>
+                </div>
+
+                <div class="consultant-card hidden" data-name="Henrique">
+                    <h4>Henrique</h4>
+                    <p class="role">Consultor de Louças e Metais</p>
+                    <div class="consultant-contact-info">
+                        <i class="fab fa-whatsapp"></i>
+                        <a href="https://wa.me/5511978949105" target="_blank">(11) 97894-9105</a>
+                    </div>
+                    <div class="consultant-contact-info">
+                        <i class="fas fa-envelope"></i>
+                        <a href="mailto:vendas07@espacorevestirmogi.com.br">vendas07@espacorevestirmogi.com.br</a>
                     </div>
                 </div>
             </div>
@@ -950,7 +1042,7 @@
                 setTimeout(() => {
                     loader.classList.add('hidden');
                     body.classList.remove('no-scroll');
-                }, 3000);
+                }, 1500); // Reduzi o tempo de loading para testar mais rápido
             }
 
             const header = document.querySelector('.site-header');
@@ -992,7 +1084,7 @@
                     const letters = text.split('');
                     letters.forEach((letter, index) => {
                         const span = document.createElement('span');
-                        span.innerHTML = letter === ' ' ? ' ' : letter;
+                        span.innerHTML = letter === ' ' ? '&nbsp;' : letter;
                         span.style.transitionDelay = `${index * 0.01}s`;
                         container.appendChild(span);
                     });
@@ -1085,6 +1177,28 @@
                     } else {
                         alert('Por favor, preencha todos os campos obrigatórios.');
                     }
+                });
+            }
+
+            // NOVA LÓGICA PARA A BUSCA DE CONSULTORES
+            const searchInput = document.getElementById('consultantSearchInput');
+            const consultantCards = document.querySelectorAll('#consultantList .consultant-card');
+
+            if (searchInput && consultantCards.length > 0) {
+                searchInput.addEventListener('input', () => {
+                    const searchTerm = searchInput.value.toLowerCase().trim();
+
+                    consultantCards.forEach(card => {
+                        const consultantName = card.dataset.name.toLowerCase();
+                        
+                        // Aparece se o nome do consultor incluir o termo pesquisado
+                        // E o campo de busca não estiver vazio
+                        if (searchTerm && consultantName.includes(searchTerm)) {
+                            card.classList.remove('hidden');
+                        } else {
+                            card.classList.add('hidden');
+                        }
+                    });
                 });
             }
 
