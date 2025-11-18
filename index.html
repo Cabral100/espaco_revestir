@@ -8,14 +8,14 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="https://unpkg.com/swiper@8/swiper-bundle.min.css" />
     
     <style>
         :root {
             --color-background: #f8f9fa;
             --color-text: #212529;
             --color-gold: #D4AF37;
-            --color-orange: #FFA500; /* Laranja mais suave */
+            --color-orange: #FFA500;
             --color-subtle: #6c757d;
             --color-section-white: #FFFFFF;
             --font-heading: 'Playfair Display', serif;
@@ -386,7 +386,6 @@
         .layered-scroll-content { position: relative; z-index: 2; padding: 2rem; max-width: 800px; }
         .layered-scroll-content .section-title { color: #FFFFFF; }
         .layered-scroll-content p { font-size: clamp(1rem, 2vw, 1.25rem); color: #FFFFFF; }
-        
         .showroom-gallery { padding: 6rem 2rem; background-color: var(--color-background); }
         .gallery-columns { columns: 3; column-gap: 1rem; }
         .gallery-item { margin-bottom: 1rem; break-inside: avoid; }
@@ -397,7 +396,6 @@
             opacity: 0;
             transform: translateY(30px);
             transition: opacity 0.8s ease-out, transform 0.8s ease-out;
-            cursor: pointer;
         }
         .gallery-item.visible img { opacity: 1; transform: translateY(0); }
 
@@ -418,24 +416,18 @@
         .map-container { overflow: hidden; height: 100%; min-height: 500px; }
         .map-container iframe { width: 100%; height: 100%; border: none; }
         
-        /* === SEÇÃO DE CONSULTORES (CAROUSEL) === */
+        /* === SEÇÃO DE CONSULTORES === */
         .team-contact-section { 
             background-color: var(--color-section-white);
             padding: 4rem 2rem 6rem 2rem;
             border-top: 1px solid #eee;
+            position: relative;
         }
-        .consultant-carousel-container {
+        .team-contact-container {
             max-width: 1200px;
             margin: 0 auto;
             position: relative;
-            padding: 0 60px; 
-        }
-        .consultant-swiper {
-            padding-bottom: 50px !important;
-        }
-        .swiper-slide {
-            height: auto;
-            display: flex;
+            padding: 0 60px;
         }
         .consultant-card {
             background-color: #fff;
@@ -443,32 +435,40 @@
             border: 1px solid #eaeaea;
             box-shadow: 0 5px 15px rgba(0,0,0,0.05);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
-            width: 100%;
+            height: 100%;
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
-            min-height: 320px; /* AUMENTADO */
         }
         .consultant-card:hover {
             transform: translateY(-5px);
             box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+        }
+        .consultant-photo {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            margin: 0 auto 1.5rem auto;
+            display: block;
+            object-fit: cover;
         }
         .consultant-card h4 {
             font-family: var(--font-heading);
             font-size: 1.5rem;
             margin-bottom: 0.5rem;
             color: var(--color-text);
+            text-align: center;
         }
         .consultant-card .role {
             color: var(--color-subtle);
             margin-bottom: 1.5rem;
             font-style: italic;
+            text-align: center;
         }
         .consultant-contact-info {
             display: flex;
             align-items: flex-start;
             gap: 1rem;
-            margin-bottom: 1.5rem;
+            margin-bottom: 0.8rem;
         }
         .consultant-contact-info i {
             color: var(--color-orange);
@@ -476,103 +476,32 @@
             margin-top: 5px;
             width: 20px;
             text-align: center;
+            flex-shrink: 0;
         }
         .consultant-contact-info a {
             color: var(--color-subtle);
             text-decoration: none;
             transition: color 0.3s ease;
-            overflow-wrap: break-word; /* ADICIONADO PARA CORRIGIR QUEBRA DE LINHA */
-            word-break: break-all; /* Garante a quebra em navegadores mais antigos */
+            word-break: break-word;
+            font-size: 0.95rem;
         }
         .consultant-contact-info a:hover {
             color: var(--color-orange);
         }
-        .consultant-contact-btn {
-            display: inline-block;
-            width: 100%;
-            padding: 12px 20px;
-            background-color: #25D366;
-            color: #FFFFFF;
-            text-decoration: none;
-            font-weight: 600;
-            text-align: center;
-            border-radius: 4px;
-            transition: background-color 0.3s ease;
-            margin-top: auto;
-        }
-        .consultant-contact-btn i {
-            margin-right: 8px;
-        }
-        .consultant-contact-btn:hover {
-            background-color: #128C7E;
-        }
-
-        /* Swiper Navigation and Pagination */
-        .consultant-carousel-container .swiper-button-prev,
-        .consultant-carousel-container .swiper-button-next {
-            color: var(--color-orange);
-            top: 50%;
-            transform: translateY(-70%); 
-        }
-        .consultant-carousel-container .swiper-button-prev {
-            left: 15px; 
-        }
-        .consultant-carousel-container .swiper-button-next {
-            right: 15px; 
-        }
-        .consultant-carousel-container .swiper-pagination-bullet {
-            background: #ccc;
-            opacity: 1;
-        }
-        .consultant-carousel-container .swiper-pagination-bullet-active {
-            background: var(--color-orange);
-        }
         
-        /* === MODAL LIGHTBOX PARA IMAGENS === */
-        .image-modal {
-            display: none;
-            position: fixed;
-            z-index: 2000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.9);
-            justify-content: center;
-            align-items: center;
-            animation: fadeInModal 0.3s ease;
+        /* Estilos das setas do Swiper */
+        .swiper-button-next,
+        .swiper-button-prev {
+            color: var(--color-orange) !important;
+            width: 50px !important;
+            height: 50px !important;
         }
-        @keyframes fadeInModal {
-            from { opacity: 0; }
-            to { opacity: 1; }
+        .swiper-button-next::after,
+        .swiper-button-prev::after {
+            font-size: 28px !important;
+            font-weight: bold;
         }
-        .modal-content {
-            margin: auto;
-            display: block;
-            max-width: 85%;
-            max-height: 85vh;
-            animation: zoomInModal 0.3s ease;
-        }
-         @keyframes zoomInModal {
-            from { transform: scale(0.8); }
-            to { transform: scale(1); }
-        }
-        .modal-close {
-            position: absolute;
-            top: 25px;
-            right: 45px;
-            color: #f1f1f1;
-            font-size: 40px;
-            font-weight: 100;
-            line-height: 1;
-            transition: 0.3s ease;
-            cursor: pointer;
-        }
-        .modal-close:hover,
-        .modal-close:focus {
-            color: #bbb;
-            text-decoration: none;
-        }
+        /* === FIM DOS ESTILOS DA SEÇÃO DE CONSULTORES === */
 
         .form-section { background-color: var(--color-background); }
         .form-container { max-width: 700px; margin: 0 auto; }
@@ -685,6 +614,7 @@
             .contact-container { grid-template-columns: 1fr; }
             .gallery-columns { columns: 2; }
         }
+        
         @media (max-width: 768px) {
             .header-content { height: 90px; }
             .header-logo { height: 80px; }
@@ -737,15 +667,35 @@
             .footer-nav ul a {
                 white-space: nowrap;
             }
+            
+            /* Responsivo para seção de consultores */
             .team-contact-section {
-                padding: 3rem 1.5rem 4rem 1.5rem;
+                padding: 3rem 1rem 4rem 1rem;
             }
-            .consultant-carousel-container {
-                padding: 0;
+            .team-contact-container {
+                padding: 0 45px;
             }
-            .consultant-carousel-container .swiper-button-prev,
-            .consultant-carousel-container .swiper-button-next {
-                display: none;
+            .swiper-button-next,
+            .swiper-button-prev {
+                width: 40px !important;
+                height: 40px !important;
+            }
+            .swiper-button-next::after,
+            .swiper-button-prev::after {
+                font-size: 20px !important;
+            }
+            .consultant-card {
+                padding: 1.5rem 1rem;
+            }
+            .consultant-card h4 {
+                font-size: 1.3rem;
+            }
+            .consultant-contact-info {
+                font-size: 0.85rem;
+            }
+            .consultant-photo {
+                width: 100px;
+                height: 100px;
             }
         }
     </style>
@@ -908,124 +858,135 @@
 
         <section class="team-contact-section">
             <div class="section-title-wrapper">
-                <h2 class="section-title">Entre em contato com alguns dos nossos consultores</h2>
+                <h2 class="section-title">Conheça Nossa Equipe</h2>
             </div>
-            <div class="consultant-carousel-container">
-                <div class="swiper consultant-swiper">
-                    <div class="swiper-wrapper">
-                        <div class="swiper-slide">
-                            <div class="consultant-card">
-                                <div>
-                                    <h4>Claudiana</h4>
-                                    <p class="role">Consultora de Revestimentos</p>
-                                    <div class="consultant-contact-info">
-                                        <i class="fas fa-envelope"></i>
-                                        <a href="mailto:vendas03@espacorevestirmogi.com.br">vendas03@espacorevestirmogi.com.br</a>
-                                    </div>
-                                </div>
-                                <a href="https://wa.me/5511970613233" target="_blank" class="consultant-contact-btn">
-                                    <i class="fab fa-whatsapp"></i> Entrar em Contato
-                                </a>
+            <div class="team-contact-container swiper" id="consultant-swiper">
+                <div class="swiper-wrapper">
+                    <!-- Claudiana -->
+                    <div class="swiper-slide">
+                        <div class="consultant-card">
+                            <img src="img/Claudiana_Marçal.png" alt="Foto de Claudiana" class="consultant-photo">
+                            <h4>Claudiana</h4>
+                            <p class="role">Consultora de Revestimentos</p>
+                            <div class="consultant-contact-info">
+                                <i class="fab fa-whatsapp"></i>
+                                <a href="https://wa.me/5511970613233" target="_blank">(11) 97061-3233</a>
                             </div>
-                        </div>
-                        <div class="swiper-slide">
-                            <div class="consultant-card">
-                                <div>
-                                    <h4>Larissa</h4>
-                                    <p class="role">Consultora de Revestimentos</p>
-                                    <div class="consultant-contact-info">
-                                        <i class="fas fa-envelope"></i>
-                                        <a href="mailto:vendas01@espacorevestirmogi.com.br">vendas01@espacorevestirmogi.com.br</a>
-                                    </div>
-                                </div>
-                                <a href="https://wa.me/5511976322619" target="_blank" class="consultant-contact-btn">
-                                    <i class="fab fa-whatsapp"></i> Entrar em Contato
-                                </a>
-                            </div>
-                        </div>
-                        <div class="swiper-slide">
-                           <div class="consultant-card">
-                                <div>
-                                    <h4>Rafaela</h4>
-                                    <p class="role">Consultora de Revestimentos</p>
-                                    <div class="consultant-contact-info">
-                                        <i class="fas fa-envelope"></i>
-                                        <a href="mailto:vendas04@espacorevestirmogi.com.br">vendas04@espacorevestirmogi.com.br</a>
-                                    </div>
-                                </div>
-                                <a href="https://wa.me/5511976311135" target="_blank" class="consultant-contact-btn">
-                                    <i class="fab fa-whatsapp"></i> Entrar em Contato
-                                </a>
-                            </div>
-                        </div>
-                        <div class="swiper-slide">
-                            <div class="consultant-card">
-                                <div>
-                                    <h4>Danyel</h4>
-                                    <p class="role">Consultor de Revestimentos</p>
-                                    <div class="consultant-contact-info">
-                                        <i class="fas fa-envelope"></i>
-                                        <a href="mailto:vendas06@espacorevestirmogi.com.br">vendas06@espacorevestirmogi.com.br</a>
-                                    </div>
-                                </div>
-                                <a href="https://wa.me/5511990186469" target="_blank" class="consultant-contact-btn">
-                                    <i class="fab fa-whatsapp"></i> Entrar em Contato
-                                </a>
-                            </div>
-                        </div>
-                        <div class="swiper-slide">
-                            <div class="consultant-card">
-                                <div>
-                                    <h4>Nicolas</h4>
-                                    <p class="role">Consultor de Revestimentos</p>
-                                    <div class="consultant-contact-info">
-                                        <i class="fas fa-envelope"></i>
-                                        <a href="mailto:vendas05@espacorevestirmogi.com.br">vendas05@espacorevestirmogi.com.br</a>
-                                    </div>
-                                </div>
-                                <a href="https://wa.me/5511990186367" target="_blank" class="consultant-contact-btn">
-                                    <i class="fab fa-whatsapp"></i> Entrar em Contato
-                                </a>
-                            </div>
-                        </div>
-                        <div class="swiper-slide">
-                           <div class="consultant-card">
-                                <div>
-                                    <h4>Ricardo</h4>
-                                    <p class="role">Consultor de Louças e Metais</p>
-                                    <div class="consultant-contact-info">
-                                        <i class="fas fa-envelope"></i>
-                                        <a href="mailto:vendas08@espacorevestirmogi.com.br">vendas08@espacorevestirmogi.com.br</a>
-                                    </div>
-                                </div>
-                                <a href="https://wa.me/5511966217832" target="_blank" class="consultant-contact-btn">
-                                    <i class="fab fa-whatsapp"></i> Entrar em Contato
-                                </a>
-                            </div>
-                        </div>
-                        <div class="swiper-slide">
-                            <div class="consultant-card">
-                                <div>
-                                    <h4>Henrique</h4>
-                                    <p class="role">Consultor de Louças e Metais</p>
-                                    <div class="consultant-contact-info">
-                                        <i class="fas fa-envelope"></i>
-                                        <a href="mailto:vendas07@espacorevestirmogi.com.br">vendas07@espacorevestirmogi.com.br</a>
-                                    </div>
-                                </div>
-                                <a href="https://wa.me/5511978949105" target="_blank" class="consultant-contact-btn">
-                                    <i class="fab fa-whatsapp"></i> Entrar em Contato
-                                </a>
+                            <div class="consultant-contact-info">
+                                <i class="fas fa-envelope"></i>
+                                <a href="mailto:vendas03@espacorevestirmogi.com.br">vendas03@espacorevestirmogi.com.br</a>
                             </div>
                         </div>
                     </div>
-                    <div class="swiper-pagination"></div>
+
+                    <!-- Larissa -->
+                    <div class="swiper-slide">
+                        <div class="consultant-card">
+                            <img src="img/Larissa_Silva.jpg" alt="Foto de Larissa" class="consultant-photo">
+                            <h4>Larissa</h4>
+                            <p class="role">Consultora de Revestimentos</p>
+                            <div class="consultant-contact-info">
+                                <i class="fab fa-whatsapp"></i>
+                                <a href="https://wa.me/5511976322619" target="_blank">(11) 97632-2619</a>
+                            </div>
+                            <div class="consultant-contact-info">
+                                <i class="fas fa-envelope"></i>
+                                <a href="mailto:vendas01@espacorevestirmogi.com.br">vendas01@espacorevestirmogi.com.br</a>
+                            </div>
+                        </div>
+                    </div>
+                
+                    <!-- Rafaela -->
+                    <div class="swiper-slide">
+                        <div class="consultant-card">
+                            <img src="img/Rafaela_Afonso.png" alt="Foto de Rafaela" class="consultant-photo">
+                            <h4>Rafaela</h4>
+                            <p class="role">Consultora de Revestimentos</p>
+                            <div class="consultant-contact-info">
+                                <i class="fab fa-whatsapp"></i>
+                                <a href="https://wa.me/5511976311135" target="_blank">(11) 97631-1135</a>
+                            </div>
+                            <div class="consultant-contact-info">
+                                <i class="fas fa-envelope"></i>
+                                <a href="mailto:vendas04@espacorevestirmogi.com.br">vendas04@espacorevestirmogi.com.br</a>
+                            </div>
+                        </div>
+                    </div>
+                
+                    <!-- Nayara -->
+                    <div class="swiper-slide">
+                        <div class="consultant-card">
+                            <img src="img/Nayara_Prado.png" alt="Foto de Danyel" class="consultant-photo">
+                            <h4>Nayara</h4>
+                            <p class="role">Coordenadora de Revestimentos</p>
+                            <div class="consultant-contact-info">
+                                <i class="fab fa-whatsapp"></i>
+                                <a href="https://wa.me/5511990186469" target="_blank">(11) 99018-6469</a>
+                            </div>
+                            <div class="consultant-contact-info">
+                                <i class="fas fa-envelope"></i>
+                                <a href="mailto:vendas06@espacorevestirmogi.com.br">vendas06@espacorevestirmogi.com.br</a>
+                            </div>
+                        </div>
+                    </div>
+                
+                    <!-- Nicolas -->
+                    <div class="swiper-slide">
+                        <div class="consultant-card">
+                            <img src="img/Nicolas_Andrade.png" alt="Foto de Nicolas" class="consultant-photo">
+                            <h4>Nicolas</h4>
+                            <p class="role">Consultor de Revestimentos</p>
+                            <div class="consultant-contact-info">
+                                <i class="fab fa-whatsapp"></i>
+                                <a href="https://wa.me/5511990186367" target="_blank">(11) 99018-6367</a>
+                            </div>
+                            <div class="consultant-contact-info">
+                                <i class="fas fa-envelope"></i>
+                                <a href="mailto:vendas05@espacorevestirmogi.com.br">vendas05@espacorevestirmogi.com.br</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Nathalia -->
+                    <div class="swiper-slide">
+                        <div class="consultant-card">
+                            <img src="img/Nathalia_Maia.png" alt="Foto de Ricardo" class="consultant-photo">
+                            <h4>Nathalia</h4>
+                            <p class="role">Gerente</p>
+                            <div class="consultant-contact-info">
+                                <i class="fab fa-whatsapp"></i>
+                                <a href="https://wa.me/5511966217832" target="_blank">(11) 96621-7832</a>
+                            </div>
+                            <div class="consultant-contact-info">
+                                <i class="fas fa-envelope"></i>
+                                <a href="mailto:vendas08@espacorevestirmogi.com.br">vendas08@espacorevestirmogi.com.br</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Henrique -->
+                    <div class="swiper-slide">
+                        <div class="consultant-card">
+                            <img src="img/Henrique_Militao.png" alt="Foto de Henrique" class="consultant-photo">
+                            <h4>Henrique</h4>
+                            <p class="role">Consultor de Louças e Metais</p>
+                            <div class="consultant-contact-info">
+                                <i class="fab fa-whatsapp"></i>
+                                <a href="https://wa.me/5511978949105" target="_blank">(11) 97894-9105</a>
+                            </div>
+                            <div class="consultant-contact-info">
+                                <i class="fas fa-envelope"></i>
+                                <a href="mailto:vendas07@espacorevestirmogi.com.br">vendas07@espacorevestirmogi.com.br</a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="swiper-button-prev"></div>
+                <!-- Botões de Navegação -->
                 <div class="swiper-button-next"></div>
+                <div class="swiper-button-prev"></div>
             </div>
         </section>
-
+        
         <section class="form-section">
            <div class="form-container">
                 <div class="contact-form">
@@ -1106,7 +1067,7 @@
                 <h2 class="section-title animated-text-container-word">Visite Nosso Site</h2>
             </div>
             <div>
-                <p >Aponte a câmera do seu celular para o QR Code ou clique no botão para explorar nosso site completo.</p>
+                <p>Aponte a câmera do seu celular para o QR Code ou clique no botão para explorar nosso site completo.</p>
                 <img src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=https://espacorevestirmogi.com.br/site_espa%C3%A7o_revestir/index.html" alt="QR Code para o site Espaço Revestir" class="qr-code-image">
                 <a href="https://espacorevestirmogi.com.br/site_espa%C3%A7o_revestir/index.html" class="visit-btn" target="_blank">Acessar Site</a>
             </div>
@@ -1135,12 +1096,7 @@
         </div>
     </footer>
     
-    <div id="imageModal" class="image-modal">
-        <span class="modal-close">×</span>
-        <img class="modal-content" id="modalImage">
-    </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
@@ -1194,7 +1150,7 @@
                     const letters = text.split('');
                     letters.forEach((letter, index) => {
                         const span = document.createElement('span');
-                        span.innerHTML = letter === ' ' ? ' ' : letter;
+                        span.innerHTML = letter === ' ' ? '&nbsp;' : letter;
                         span.style.transitionDelay = `${index * 0.01}s`;
                         container.appendChild(span);
                     });
@@ -1290,64 +1246,31 @@
                 });
             }
 
-            // LÓGICA PARA O CAROUSEL DE CONSULTORES
-            const consultantSwiper = new Swiper('.consultant-swiper', {
+            // INICIALIZAÇÃO DO SWIPER - CARROSSEL DE CONSULTORES
+            const consultantSwiper = new Swiper('#consultant-swiper', {
                 loop: true,
-                grabCursor: true,
-                slidesPerView: 1, // Exibe 1 por padrão (mobile)
                 spaceBetween: 30,
-                pagination: {
-                  el: '.swiper-pagination',
-                  clickable: true,
-                },
                 navigation: {
-                  nextEl: '.swiper-button-next',
-                  prevEl: '.swiper-button-prev',
+                    nextEl: '.swiper-button-next',
+                    prevEl: '.swiper-button-prev',
                 },
                 breakpoints: {
-                  // Acima de 768px, exibe 1 card grande (ajuste para tablet)
-                  768: {
-                    slidesPerView: 1,
-                    spaceBetween: 30,
-                  },
-                  // Acima de 1024px, exibe 2 cards (desktop)
-                  1024: {
-                    slidesPerView: 2,
-                    spaceBetween: 30,
-                  },
+                    320: {
+                        slidesPerView: 1,
+                        spaceBetween: 20
+                    },
+                    768: {
+                        slidesPerView: 2,
+                        spaceBetween: 25
+                    },
+                    1024: {
+                        slidesPerView: 3,
+                        spaceBetween: 30
+                    }
                 }
             });
 
-            // LÓGICA PARA O MODAL LIGHTBOX DE IMAGENS
-            const modal = document.getElementById('imageModal');
-            if (modal) {
-                const modalImg = document.getElementById('modalImage');
-                const closeBtn = document.querySelector('.modal-close');
-                const galleryImages = document.querySelectorAll('.gallery-item img');
-
-                galleryImages.forEach(img => {
-                    img.addEventListener('click', () => {
-                        modal.style.display = 'flex';
-                        modalImg.src = img.src;
-                        document.body.classList.add('no-scroll');
-                    });
-                });
-
-                const closeModal = () => {
-                    modal.style.display = 'none';
-                    document.body.classList.remove('no-scroll');
-                };
-
-                closeBtn.addEventListener('click', closeModal);
-
-                modal.addEventListener('click', (e) => {
-                    if (e.target === modal) { 
-                        closeModal();
-                    }
-                });
-            }
-
-
+            // Scroll suave para âncoras
             document.querySelectorAll('a[href^="#"]').forEach(anchor => {
                 anchor.addEventListener('click', function(e) {
                     e.preventDefault();
